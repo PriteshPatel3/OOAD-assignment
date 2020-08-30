@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import javafx.scene.image.*;
 import javafx.scene.text.*;
 
-public class Peice()
+public class Piece()
 {
     int x,y;
     String PName;
