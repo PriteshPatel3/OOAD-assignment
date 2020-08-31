@@ -57,6 +57,7 @@ public class Piece{
                     tempRotate = new ImageView("ChessPiece/triangleB.png");
                     tempRotate.setRotate(180);
                     this.button = new Button(" ", tempRotate);
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
@@ -64,6 +65,7 @@ public class Piece{
                     tempRotate = new ImageView("ChessPiece/chevronB.png");
                     tempRotate.setRotate(180);
                     this.button = new Button(" ", tempRotate);
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
@@ -71,6 +73,7 @@ public class Piece{
                     tempRotate = new ImageView("ChessPiece/sunB.png");
                     tempRotate.setRotate(180);
                     this.button = new Button(" ", tempRotate);
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
@@ -78,6 +81,7 @@ public class Piece{
                     tempRotate = new ImageView("ChessPiece/chevronB.png");
                     tempRotate.setRotate(180);
                     this.button = new Button(" ", tempRotate);
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
@@ -85,6 +89,7 @@ public class Piece{
                     tempRotate = new ImageView("ChessPiece/triangleB.png");
                     tempRotate.setRotate(180);
                     this.button = new Button(" ", tempRotate);
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
@@ -92,11 +97,13 @@ public class Piece{
                     tempRotate = new ImageView("ChessPiece/addB.png");
                     tempRotate.setRotate(180);
                     this.button = new Button(" ", tempRotate);
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 default:
                     this.button = new Button(" ", new ImageView("ChessPiece/empty.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
 
@@ -110,26 +117,31 @@ public class Piece{
             switch(x){
                 case 0:
                     this.button = new Button(" ", tempRotate);
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 case 2:
                     this.button = new Button(" ", tempRotate);
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 case 4:
                     this.button = new Button(" ", tempRotate);
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 case 6:
                     this.button = new Button(" ", tempRotate);
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 default:
                     this.button = new Button(" ", new ImageView("ChessPiece/empty.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
             }
@@ -140,41 +152,49 @@ public class Piece{
             switch(x){
                 case 0:
                     this.button = new Button(" ", new ImageView("ChessPiece/addR.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 case 1:
                     this.button = new Button(" ", new ImageView("ChessPiece/triangleR.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 case 2:
                     this.button = new Button(" ", new ImageView("ChessPiece/chevronR.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 case 3:
                     this.button = new Button(" ", new ImageView("ChessPiece/sunR.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 case 4:
                     this.button = new Button(" ", new ImageView("ChessPiece/chevronR.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 case 5:
                     this.button = new Button(" ", new ImageView("ChessPiece/triangleR.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 case 6:
                     this.button = new Button(" ", new ImageView("ChessPiece/addR.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 default:
                     this.button = new Button(" ", new ImageView("ChessPiece/empty.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
             }
@@ -184,26 +204,31 @@ public class Piece{
             switch(x){
                 case 0:
                     this.button = new Button(" ", new ImageView("ChessPiece/arrowR.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 case 2:
                     this.button = new Button(" ", new ImageView("ChessPiece/arrowR.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 case 4:
                     this.button = new Button(" ", new ImageView("ChessPiece/arrowR.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 case 6:
                     this.button = new Button(" ", new ImageView("ChessPiece/arrowR.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
                     break;
                 default:
                     this.button = new Button(" ", new ImageView("ChessPiece/empty.png"));
+                    this.button.setOnAction(btnHandler);
                     btns.add(this.button);
                     this.PName = r1[1];
             }
@@ -211,6 +236,7 @@ public class Piece{
         else
         {
             this.button = new Button(" ", new ImageView("ChessPiece/empty.png"));
+            this.button.setOnAction(btnHandler);
             btns.add(this.button);
             this.PName = r1[1];
         }

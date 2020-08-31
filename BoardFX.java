@@ -7,6 +7,7 @@ import javafx.stage.Stage;
 import javafx.scene.image.*;
 import javafx.scene.text.*;
 import java.util.ArrayList;
+import javafx.scene.Node;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +17,7 @@ public class BoardFX extends Application
 {
 
     static GridPane board = new GridPane();
+
     @Override
     public void start(Stage primaryStage)
     {
@@ -68,9 +70,16 @@ public class BoardFX extends Application
         
     }
 
-    public static void barrelRoll()
+    public static int getX(Object source)
     {
-        board.setRotate(300);
+        Button b = (Button) source; 
+        return board.getRowIndex(b);
+    }
+
+    public static int getY(Object source)
+    {
+        Button b = (Button) source; 
+        return board.getColumnIndex(b);
     }
 }
 
