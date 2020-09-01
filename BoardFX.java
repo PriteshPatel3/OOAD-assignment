@@ -13,40 +13,16 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 
 
-public class BoardFX extends Application
-{
+public final class BoardFX
+{   
+    private static GridPane board = new GridPane();
 
-    static GridPane board = new GridPane();
-
-    @Override
-    public void start(Stage primaryStage)
+    BoardFX(Stage primaryStage)
     {
-        
-        ArrayList<Piece> pieces = new ArrayList<>();
-        //Declare gridpane for the chess game
-        
         board.setAlignment(Pos.CENTER);
         board.setHgap(5);
         board.setVgap(5);
-        int count = 0;
 
-        
-        // Making the board
-        for(int i=0;i<7;i++)
-        {
-            for (int j=0;j<8;j++)
-            {
-                //Image icon = new Image(getClass().getResourceAsStream("clear.png"));
-                pieces.add(new Piece(i,j));
-                //piece.setMinSize(100,100);
-                //piece.setStyle("-fx-background-color: grey; ");
-                board.add(pieces.get(count).getButton(count),i,j);
-                count++;
-            }
-        }
-        
-
-        //Design Menu
         Menu menu = new Menu("Options");
         MenuBar bar = new MenuBar();
         bar.getMenus().add(menu);
@@ -67,7 +43,6 @@ public class BoardFX extends Application
         primaryStage.setTitle("Chess");
         primaryStage.setScene(scene);
         primaryStage.show();
-        
     }
 
     public static int getX(Object source)
@@ -80,6 +55,11 @@ public class BoardFX extends Application
     {
         Button b = (Button) source; 
         return board.getColumnIndex(b);
+    }
+
+    public GridPane get()
+    {
+        return board;
     }
 }
 
