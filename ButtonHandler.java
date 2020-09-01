@@ -98,7 +98,20 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             //System.out.println("This move is not allowed");
         }
     }
-    
+
+    public void moveTri (int xDes, int yDes, int xSour, int ySour)
+    {
+        if ((Math.abs(yDes-ySour) == Math.abs(xDes-xSour)) && (Math.abs(yDes-ySour) != 0) && (Math.abs(xDes-xSour) != 0))
+        {
+            //System.out.println("This move is allowed");
+        }
+        else
+        {
+            //System.out.println("This move is not allowed");
+        }
+    }
+        
+
         // gets the piece image based on the piece name and team
     public ImageView nameToImage (char name, char team)
     {
