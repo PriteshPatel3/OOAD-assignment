@@ -84,7 +84,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                     //return true;
                     //break;
                 case 'a':
-                    return moveAr(xDes,yDes,xSour,ySour,sourceCord);
+                    return moveAr(xDes,yDes,xSour,ySour,sourceCord,destinationCord);
                     //return true;
                     //break;
                 default:
@@ -98,41 +98,91 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
     }
 
-    private boolean moveAr (int xDes, int yDes, int xSour, int ySour, String sourceCord)
+    private boolean moveAr (int xDes, int yDes, int xSour, int ySour, String sourceCord, String destinationCord)
     {
-            if (Character.compare(pMap.get(sourceCord).getTeam(),'b') == 0)
+        /*if(xDes == 7 || xDes == 0)
+        {
+            pMap.get(sourceCord).getButton().setRotate(180);
+        }*/
+        if(xDes == 7 || xDes == 0)
+        {   
+            //if (Math.abs(xSour - xDes) == 1 || Math.abs(xSour - xDes) == 2)
+            //{
+            /*if(pMap.get(sourceCord).getButton().getGraphic().getRotate() == 0)
             {
-                if ((Math.abs(ySour - yDes) == 0))
-                {
-                    if ((xSour - xDes) == -1 || (xSour - xDes) == -2)
-                        return true;
-                    else
-                        return false;
-                }
-                else
-                {
-                    return false;
-                }
+                pMap.get(sourceCord).getButton().getGraphic().setRotate(180);
+                
             }
-
-            else if (Character.compare(pMap.get(sourceCord).getTeam(),'r') == 0)
-            {
-                if ((Math.abs(ySour - yDes) == 0))
-                {
-                    if ((xSour - xDes) == 1 || (xSour - xDes) == 2)
-                        return true;
-                    else
-                        return false;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-
             else
+                pMap.get(sourceCord).getButton().getGraphic().setRotate(0);
+           // }*/
+            
+        }    
+        if (Character.compare(pMap.get(sourceCord).getTeam(),'b') == 0)
+        {
+            if ((Math.abs(ySour - yDes) == 0))
+            {
+                if (((xSour - xDes) == -1 || (xSour - xDes) == -2) && pMap.get(sourceCord).getButton().getGraphic().getRotate() == 0)
+                {
+                    if(xDes == 7 || xDes == 0)
+                        {
+                            if(pMap.get(sourceCord).getButton().getGraphic().getRotate() == 0)
+                                pMap.get(sourceCord).getButton().getGraphic().setRotate(180); 
+                        }
+                    return true;
+                }
+                else if (((xSour - xDes) == 1 || (xSour - xDes) == 2) && pMap.get(sourceCord).getButton().getGraphic().getRotate() == 180)
+                {
+                    if(xDes == 7 || xDes == 0)
+                        {
+                            if(pMap.get(sourceCord).getButton().getGraphic().getRotate() == 180)
+                                pMap.get(sourceCord).getButton().getGraphic().setRotate(0); 
+                        }
+                    return true;
+                }
+                else
+                    return false;
+            }
+            else
+            {
                 return false;
-        
+            }
+        }
+
+        else if (Character.compare(pMap.get(sourceCord).getTeam(),'r') == 0)
+        {
+            if ((Math.abs(ySour - yDes) == 0))
+            {
+                if (((xSour - xDes) == 1 || (xSour - xDes) == 2) && pMap.get(sourceCord).getButton().getGraphic().getRotate() == 0)
+                {
+                    if(xDes == 7 || xDes == 0)
+                    {
+                        if(pMap.get(sourceCord).getButton().getGraphic().getRotate() == 0)
+                            pMap.get(sourceCord).getButton().getGraphic().setRotate(180); 
+                    }
+                    return true;
+                }
+                else if (((xSour - xDes) == -1 || (xSour - xDes) == -2) && pMap.get(sourceCord).getButton().getGraphic().getRotate() == 180)
+                {
+                    if(xDes == 7 || xDes == 0)
+                    {
+                        if(pMap.get(sourceCord).getButton().getGraphic().getRotate() == 0)
+                            pMap.get(sourceCord).getButton().getGraphic().setRotate(180); 
+                    }
+                    return true;
+                }
+                    
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        else
+            return false;
     }
 
     private boolean moveSun (int xDes, int yDes, int xSour, int ySour)
