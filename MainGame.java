@@ -16,9 +16,8 @@ import javafx.event.EventHandler;
 
 public class MainGame extends Application
 {
-    StringBuilder sb = new StringBuilder();
     GridPane chessBoard = new GridPane();
-
+    LinkedHashMap<String, Piece> pMap = new LinkedHashMap<String, Piece>(57,0.75f,false); //size, load order, how to insert, false = insertion order
     @Override
     public void start(Stage primaryStage)
     {
@@ -28,16 +27,16 @@ public class MainGame extends Application
         for(int i=0;i<7;i++)
         {
             for (int j=0;j<8;j++)
-            {                                                                       //size, load order, how to insert
-                                                                                    //false = insertion order
-                LinkedHashMap<String, Piece> pMap = new LinkedHashMap<String, Piece>(57,0.75f,false);
+            {
+                StringBuilder sb = new StringBuilder(); // i use to append i j so i can make it as key
                 sb.append(i);
                 sb.append(j);
-                String coord = sb.toString();
-                pMap.put(coord,new Piece(i,j));
-                chessBoard.get().add(pMap.get(coord).getButton(),i,j);
+                String coord = sb.toString(); // i + j in string
+                pMap.put(coord,new Piece(i,j)); // put a new Piece obj at coordinates
+                chessBoard.setBoard(pMap.get(coord).getButton(),i,j); // set the piece in the chessboard
             }
         }
+        //System.out.println(pMap);
     } 
 }
 

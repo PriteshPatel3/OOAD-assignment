@@ -39,7 +39,7 @@ public final class BoardFX
         //board.setRotate(300);
 
         //Set up primary Stage
-        Scene scene = new Scene(layout);
+        Scene scene = new Scene(layout,1024,950);
         primaryStage.setTitle("Chess");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -57,9 +57,14 @@ public final class BoardFX
         return board.getColumnIndex(b);
     }
 
-    public GridPane get()
+    public GridPane getBoard()
     {
         return board;
+    }
+
+    public void setBoard(Node node, int col, int row)
+    {
+        board.add(node,col,row);
     }
 }
 
