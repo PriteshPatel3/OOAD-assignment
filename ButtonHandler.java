@@ -24,11 +24,14 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             String destinationCord = cordStack.pop();
             String sourceCord = cordStack.pop();
             //seperate string to int x y
-            xDes = Integer.parseInt(destinationCord.charAt(0));
-            yDes = Integer.parseInt(destinationCord.charAt(1));
-            xSour = Integer.parseInt(sourceCord.charAt(0));
-            ySour = Integer.parseInt(sourceCord.charAt(1));
-            move(destinationCord, sourceCord);
+            int xDes = Integer.parseInt(String.valueOf(destinationCord.charAt(0)));
+            int yDes = Integer.parseInt(String.valueOf(destinationCord.charAt(1)));
+            int xSour = Integer.parseInt(String.valueOf(sourceCord.charAt(0)));
+            int ySour = Integer.parseInt(String.valueOf(sourceCord.charAt(1)));
+            if(checkPiece())
+            {
+                move(destinationCord, sourceCord);
+            }
             //clear stack
             //cordStack.clear();
         }
@@ -38,7 +41,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         System.out.println(cordStack.size());
     }
 
-    public void move (String destinationCord, String sourceCord)
+    private void move (String destinationCord, String sourceCord)
     {
         //get team name and piece name
         char sourceName = pMap.get(sourceCord).getName();
@@ -57,12 +60,21 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         pMap.get(destinationCord).setTeam(sourceTeam);;
     }
 
-    public void moveArr (int xDes, int yDes, int xSour, int ySour)
+    private void moveAr (int xDes, int yDes, int xSour, int ySour)
     {
         if ((xSour - xDes == 0) && ((ySour - yDes == 1) || (ySour - yDes == 2))){}
             //legal
         else{}
             //illegal
+    }
+
+    private void checkPiece(String sourceCord)
+    {
+        char name = pMap.get(sourceCord).getName();
+        switch(name)
+        {
+            case 'p':
+        }
     }
 
         // gets the piece image based on the piece name and team
