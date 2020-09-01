@@ -32,8 +32,14 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             {
                 move(destinationCord, sourceCord);
             }
-            //clear stack
-            //cordStack.clear();
+
+            //checks to see that the user does not press the same button and the source isnt an empty button
+            if( !(destinationCord.equals(sourceCord)) && (Character.compare(pMap.get(sourceCord).getName() ,'\0') != 0) )
+            {
+                //clear stack
+                //cordStack.clear();
+                move(destinationCord, sourceCord);
+            }
         }
 
         System.out.println("X: " + x + " Y: "+ y);
