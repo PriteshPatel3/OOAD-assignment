@@ -70,24 +70,22 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             switch(name)
             {
                 case 'p':
-                    movePlus(xDes,yDes,xSour,ySour);
-                    return true;
+                    return movePlus(xDes,yDes,xSour,ySour);
                     //break;
                 case 't':
-                    moveTri(xDes,yDes,xSour,ySour);
-                    return true;
+                    return moveTri(xDes,yDes,xSour,ySour);
                     //break;
                 case 'c':
-                    moveChev(xDes,yDes,xSour,ySour);
-                    return true;
+                    return moveChev(xDes,yDes,xSour,ySour);
+                    //return true;
                     //break;
                 case 's':
-                    moveSun(xDes,yDes,xSour,ySour);
-                    return true;
+                    return moveSun(xDes,yDes,xSour,ySour);
+                    //return true;
                     //break;
                 case 'a':
-                    moveAr(xDes,yDes,xSour,ySour);
-                    return true;
+                    return moveAr(xDes,yDes,xSour,ySour);
+                    //return true;
                     //break;
                 default:
                     return false;
