@@ -17,7 +17,7 @@ import javafx.event.EventHandler;
 public class MainGame extends Application
 {
     GridPane chessBoard = new GridPane();
-    LinkedHashMap<String, Piece> pMap = new LinkedHashMap<String, Piece>(57,0.75f,false); //size, load order, how to insert, false = insertion order
+    static LinkedHashMap<String, Piece> pMap = new LinkedHashMap<String, Piece>(57,0.75f,false); //size, load order, how to insert, false = insertion order
     @Override
     public void start(Stage primaryStage)
     {
