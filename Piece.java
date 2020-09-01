@@ -30,6 +30,16 @@ public class Piece{
         return button;
     }
 
+    public char getName()
+    {
+        return PName;
+    }
+
+    public char getTeam()
+    {
+        return this.team;
+    }
+
     private void setUpPiece() 
     {
         if(this.y == 0)
@@ -153,9 +163,9 @@ public class Piece{
         }
     }
 
-    @Override
-    public String toString()
-    {
-        return "Chess @ X:" + x + " Y:"+ y;
-    }
+    //@Override
+    //public String toString()
+    //{
+        //return "Chess @ X:" + x + " Y:"+ y;
+    //}
 }
