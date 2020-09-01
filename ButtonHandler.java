@@ -7,13 +7,29 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
     public void handle(ActionEvent e)
     {
         StringBuilder sb = new StringBuilder();
-        //System.out.println(e.getSource());
-        int x = BoardFX.getX(e.getSource());
-        int y = BoardFX.getY(e.getSource());
+        int x = board.getColumnIndex((Button)e.getSource());
+        int y = board.getRowIndex((Button)e.getSource());
         sb.append(x);
         sb.append(y);
+        
+        cordStack.push(sb.toString());
+
+
+        if (butCord.size() == 2)
+        {
+            //Move Function
+
+        }
 
         System.out.println("X: " + x + " Y: "+ y);
         System.out.println("Name:" + pMap.get(sb.toString()).getName());
+    }
+
+    public void move (Stack<String> SStack)
+    {
+        String destinationCord = pMap.get(SStack.pop());
+        String sourceCord = pMap.get(SStack.pop());
+
+        //char sourcePiece = pMap.get(sourceCord).get
     }
 }

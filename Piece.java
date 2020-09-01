@@ -25,6 +25,11 @@ public class Piece{
         setUpPiece(); //setup button based X Y on coordinates
     }
 
+    public void setName (char name)
+    {
+        this.Pname = name;
+    }
+    
     public Button getButton()
     {
         return button;

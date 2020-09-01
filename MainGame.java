@@ -18,6 +18,8 @@ public class MainGame extends Application
 {
     GridPane chessBoard = new GridPane();
     static LinkedHashMap<String, Piece> pMap = new LinkedHashMap<String, Piece>(57,0.75f,false); //size, load order, how to insert, false = insertion order
+    static Stack<String> cordStack = new Stack<String>();
+
     @Override
     public void start(Stage primaryStage)
     {

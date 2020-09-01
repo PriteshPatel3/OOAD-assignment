@@ -15,7 +15,7 @@ import javafx.event.EventHandler;
 
 public final class BoardFX
 {   
-    private static GridPane board = new GridPane();
+    static GridPane board = new GridPane();
 
     BoardFX(Stage primaryStage)
     {
