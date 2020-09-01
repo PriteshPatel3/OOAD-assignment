@@ -27,7 +27,7 @@ public class Piece{
 
     public void setName (char name)
     {
-        this.Pname = name;
+        this.PName = name;
     }
     
     public Button getButton()
@@ -43,6 +43,11 @@ public class Piece{
     public char getTeam()
     {
         return this.team;
+    }
+
+    public void setTeam(char team)
+    {
+        this.team = team;
     }
 
     private void setUpPiece() 
@@ -112,27 +117,27 @@ public class Piece{
                 case 6:
                     this.button = new Button(" ", new ImageView("ChessPiece/addR.png"));
                     this.button.setOnAction(btnHandler);
-                    this.PName = 'a';
+                    this.PName = 'p';
                     this.team = 'r';
                     break;
                 case 1:
                 case 5:
                     this.button = new Button(" ", new ImageView("ChessPiece/triangleR.png"));
                     this.button.setOnAction(btnHandler);
-                    this.PName = 'a';
+                    this.PName = 't';
                     this.team = 'r';
                     break;
                 case 2:
                 case 4:
                     this.button = new Button(" ", new ImageView("ChessPiece/chevronR.png"));
                     this.button.setOnAction(btnHandler);
-                    this.PName = 'a';
+                    this.PName = 'c';
                     this.team = 'r';
                     break;
                 case 3:
                     this.button = new Button(" ", new ImageView("ChessPiece/sunR.png"));
                     this.button.setOnAction(btnHandler);
-                    this.PName = 'a';
+                    this.PName = 's';
                     this.team = 'r';
                     break;
                 default:
