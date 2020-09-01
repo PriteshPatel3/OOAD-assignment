@@ -90,42 +90,50 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 default:
                     return false;
                     //break;
-
             }
-        }
-        else 
-            return false;
-    }
-
-    private void moveAr (int xDes, int yDes, int xSour, int ySour)
-    {
-        if ((xSour - xDes == 0) && ((ySour - yDes == 1) || (ySour - yDes == 2))){}
-            //legal
-        else{}
-            //illegal
-    }
-
-    private void moveSun (int xDes, int yDes, int xSour, int ySour)
-    {
-        if ((yDes == ySour) && (xDes == xSour))
-        {
-            //System.out.println("No!");
-        }
-        else if ((Math.abs(yDes-ySour) <= 1) || (Math.abs(xDes-xSour) <= 1))
-        {
-            //System.out.println("Sure!");
-        }
-    }
-
-    private void movePlus (int xDes, int yDes, int xSour, int ySour)
-    {
-        if ((((Math.abs(yDes-ySour) != 0) && (Math.abs(xDes-xSour) == 0)) || ((Math.abs(yDes-ySour) == 0)) && (Math.abs(xDes-xSour) != 0)))
-        {
-            //System.out.println("This move is allowed");
         }
         else
         {
-            //System.out.println("This move is not allowed");
+            return false;
+        }
+    }
+
+    private boolean moveAr (int xDes, int yDes, int xSour, int ySour)
+    {
+        if ((Math.abs(ySour - yDes) == 0))
+        {
+            if ((xSour - xDes) == -1 || (xSour - xDes) == -2)
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    private boolean moveSun (int xDes, int yDes, int xSour, int ySour)
+    {
+        if ((Math.abs(yDes-ySour) <= 1) && (Math.abs(xDes-xSour) <= 1))
+        {
+            return true;
+        }
+        else 
+        {
+            return false;
+        }
+    }
+
+    private boolean movePlus (int xDes, int yDes, int xSour, int ySour)
+    {
+        if ((((Math.abs(yDes-ySour) != 0) && (Math.abs(xDes-xSour) == 0)) || ((Math.abs(yDes-ySour) == 0)) && (Math.abs(xDes-xSour) != 0)))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
@@ -146,15 +154,15 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
     }
     
-    public void moveTri (int xDes, int yDes, int xSour, int ySour)
+    public boolean moveTri (int xDes, int yDes, int xSour, int ySour)
     {
         if ((Math.abs(yDes-ySour) == Math.abs(xDes-xSour)) && (Math.abs(yDes-ySour) != 0) && (Math.abs(xDes-xSour) != 0))
         {
-            //System.out.println("This move is allowed");
+            return true;
         }
         else
         {
-            //System.out.println("This move is not allowed");
+            return false;
         }
     }
         
