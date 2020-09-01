@@ -23,11 +23,6 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             //get destination and source coordinates
             String destinationCord = cordStack.pop();
             String sourceCord = cordStack.pop();
-            //seperate string to int x y
-            int xDes = Integer.parseInt(String.valueOf(destinationCord.charAt(0)));
-            int yDes = Integer.parseInt(String.valueOf(destinationCord.charAt(1)));
-            int xSour = Integer.parseInt(String.valueOf(sourceCord.charAt(0)));
-            int ySour = Integer.parseInt(String.valueOf(sourceCord.charAt(1)));
             if(checkPiece())
             {
                 move(destinationCord, sourceCord);
@@ -66,6 +61,37 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         pMap.get(destinationCord).setTeam(sourceTeam);;
     }
 
+    private void checkPiece(String sourceCord, String destinationCord)
+    {
+        //seperate string to int x y
+        int xDes = Integer.parseInt(String.valueOf(destinationCord.charAt(0)));
+        int yDes = Integer.parseInt(String.valueOf(destinationCord.charAt(1)));
+        int xSour = Integer.parseInt(String.valueOf(sourceCord.charAt(0)));
+        int ySour = Integer.parseInt(String.valueOf(sourceCord.charAt(1)));
+        char name = pMap.get(sourceCord).getName();
+        switch(name)
+        {
+            case 'p':
+                movePlus(xDes,yDes,xSour,ySour);
+                break;
+            case 't':
+
+                break;
+            case 'c':
+                moveChev(xDes,yDes,xSour,ySour);
+                break;
+            case 's':
+                moveSun(xDes,yDes,xSour,ySour);
+                break;
+            case 'a':
+                moveAr(xDes,yDes,xSour,ySour);
+                break;
+            default:
+                break;
+
+        }
+    }
+
     private void moveAr (int xDes, int yDes, int xSour, int ySour)
     {
         if ((xSour - xDes == 0) && ((ySour - yDes == 1) || (ySour - yDes == 2))){}
@@ -74,16 +100,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             //illegal
     }
 
-    private void checkPiece(String sourceCord)
-    {
-        char name = pMap.get(sourceCord).getName();
-        switch(name)
-        {
-            case 'p':
-        }
-    }
-
-    public void moveSun (int xDes, int yDes, int xSour, int ySour)
+    private void moveSun (int xDes, int yDes, int xSour, int ySour)
     {
         if ((yDes == ySour) && (xDes == xSour))
         {
@@ -95,7 +112,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
     }
 
-    public void movePlus (int xDes, int yDes, int xSour, int ySour)
+    private void movePlus (int xDes, int yDes, int xSour, int ySour)
     {
         if ((((Math.abs(yDes-ySour) != 0) && (Math.abs(xDes-xSour) == 0)) || ((Math.abs(yDes-ySour) == 0)) && (Math.abs(xDes-xSour) != 0)))
         {
@@ -106,9 +123,26 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             //System.out.println("This move is not allowed");
         }
     }
+
+    private boolean moveChev(int x1, int y1, int x2, int y2)
+    {
+        int diffX = Math.abs(x2-x1);
+        int diffY = Math.abs(y2-y1);
+
+        
+        if (((diffX == 1) && (diffY == 2)) || ((diffX == 2)&&(diffY == 1)))
+        {
+            return true;
+        }
+
+        else 
+        {
+            return false;
+        }
+    }
     
         // gets the piece image based on the piece name and team
-    public ImageView nameToImage (char name, char team)
+    private ImageView nameToImage (char name, char team)
     {
             ImageView icon;
             switch(name)
