@@ -29,8 +29,8 @@ public class MainGame extends Application
             for (int j=0;j<8;j++)
             {
                 StringBuilder sb = new StringBuilder(); // i use to append i j so i can make it as key
-                sb.append(i);
                 sb.append(j);
+                sb.append(i);
                 String coord = sb.toString(); // i + j in string
                 pMap.put(coord,new Piece(i,j)); // put a new Piece obj at coordinates
                 chessBoard.setBoard(pMap.get(coord).getButton(),i,j); // set the piece in the chessboard
