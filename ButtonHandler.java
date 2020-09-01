@@ -24,13 +24,23 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             String destinationCord = cordStack.pop();
             String sourceCord = cordStack.pop();
             //seperate string to int x y
-            xDes = Integer.parseInt(destinationCord.charAt(0));
-            yDes = Integer.parseInt(destinationCord.charAt(1));
-            xSour = Integer.parseInt(sourceCord.charAt(0));
-            ySour = Integer.parseInt(sourceCord.charAt(1));
-            move(destinationCord, sourceCord);
-            //clear stack
-            //cordStack.clear();
+            int xDes = Integer.parseInt(String.valueOf(destinationCord.charAt(0)));
+            int yDes = Integer.parseInt(String.valueOf(destinationCord.charAt(1)));
+            int xSour = Integer.parseInt(String.valueOf(sourceCord.charAt(0)));
+            int ySour = Integer.parseInt(String.valueOf(sourceCord.charAt(1)));
+
+            //checks to see that the user does not press the same button and the source isnt an empty button
+            if( !(destinationCord.equals(sourceCord)) && (Character.compare(pMap.get(sourceCord).getName() ,'\0') != 0) )
+            {
+                //clear stack
+                //cordStack.clear();
+                move(destinationCord, sourceCord);
+            }
+            
+            
+            
+            
+            
         }
 
         System.out.println("X: " + x + " Y: "+ y);
