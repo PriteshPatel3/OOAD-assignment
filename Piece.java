@@ -16,6 +16,7 @@ public class Piece{
     private int x,y;
     private char PName;
     private Button button;
+    private char team;
     ButtonHandler btnHandler = new ButtonHandler();
     Piece (int x,int y)
     {
@@ -35,52 +36,36 @@ public class Piece{
         {
             switch(x){
                 case 0:
+                case 6:
                     this.button = new Button(" ", new ImageView("ChessPiece/addB.png"));
                     this.button.setOnAction(btnHandler);
-                    ////btns.add(this.button);
-                    this.PName = 'a';
+                    this.PName = 'p';
+                    this.team = 'b';
                     break;
                 case 1:
+                case 5;
                     this.button = new Button(" ", new ImageView("ChessPiece/triangleB.png"));
                     this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
+                    this.PName = 't';
+                    this.team = 'b';
                     break;
                 case 2:
+                case 4:
                     this.button = new Button(" ",  new ImageView("ChessPiece/chevronB.png"));
                     this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
+                    this.PName = 'c';
+                    this.team = 'b';
                     break;
                 case 3:
                     this.button = new Button(" ", new ImageView("ChessPiece/sunB.png"));
                     this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
-                    break;
-                case 4:
-                    this.button = new Button(" ", new ImageView("ChessPiece/chevronB.png"));
-                    this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
-                    break;
-                case 5:
-                    this.button = new Button(" ", new ImageView("ChessPiece/triangleB.png"));
-                    this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
-                    break;
-                case 6:
-                    this.button = new Button(" ", new ImageView("ChessPiece/addB.png"));
-                    this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
+                    this.PName = 's';
+                    this.team = 'b';
                     break;
                 default:
                     this.button = new Button(" ", new ImageView("ChessPiece/empty.png"));
                     this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
+                    
 
             } 
         }
@@ -90,34 +75,18 @@ public class Piece{
             //If all arrows rotated if reached end, this could be the cause
             switch(x){
                 case 0:
-                    this.button = new Button(" ", tempRotate);
-                    this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
-                    break;
                 case 2:
-                    this.button = new Button(" ", tempRotate);
-                    this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
-                    break;
                 case 4:
+                case 6;
                     this.button = new Button(" ", tempRotate);
                     this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
                     this.PName = 'a';
-                    break;
-                case 6:
-                    this.button = new Button(" ", tempRotate);
-                    this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
+                    this.team = 'b';
                     break;
                 default:
                     this.button = new Button(" ", new ImageView("ChessPiece/empty.png"));
                     this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
+                    
             }
         }
 
@@ -125,94 +94,62 @@ public class Piece{
         {
             switch(x){
                 case 0:
+                case 6:
                     this.button = new Button(" ", new ImageView("ChessPiece/addR.png"));
                     this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
                     this.PName = 'a';
+                    this.team = 'r';
                     break;
                 case 1:
+                case 5:
                     this.button = new Button(" ", new ImageView("ChessPiece/triangleR.png"));
                     this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
                     this.PName = 'a';
+                    this.team = 'r';
                     break;
                 case 2:
+                case 4:
                     this.button = new Button(" ", new ImageView("ChessPiece/chevronR.png"));
                     this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
                     this.PName = 'a';
+                    this.team = 'r';
                     break;
                 case 3:
                     this.button = new Button(" ", new ImageView("ChessPiece/sunR.png"));
                     this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
                     this.PName = 'a';
-                    break;
-                case 4:
-                    this.button = new Button(" ", new ImageView("ChessPiece/chevronR.png"));
-                    this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
-                    break;
-                case 5:
-                    this.button = new Button(" ", new ImageView("ChessPiece/triangleR.png"));
-                    this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
-                    break;
-                case 6:
-                    this.button = new Button(" ", new ImageView("ChessPiece/addR.png"));
-                    this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
+                    this.team = 'r';
                     break;
                 default:
                     this.button = new Button(" ", new ImageView("ChessPiece/empty.png"));
                     this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
+                    this.PName = '';
             }
         }
         else if(this.y == 6)
         {
             switch(x){
                 case 0:
-                    this.button = new Button(" ", new ImageView("ChessPiece/arrowR.png"));
-                    this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
-                    break;
                 case 2:
-                    this.button = new Button(" ", new ImageView("ChessPiece/arrowR.png"));
-                    this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
-                    break;
                 case 4:
-                    this.button = new Button(" ", new ImageView("ChessPiece/arrowR.png"));
-                    this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
-                    break;
                 case 6:
                     this.button = new Button(" ", new ImageView("ChessPiece/arrowR.png"));
                     this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
                     this.PName = 'a';
+                    this.team = 'r';
                     break;
                 default:
                     this.button = new Button(" ", new ImageView("ChessPiece/empty.png"));
                     this.button.setOnAction(btnHandler);
-                    //btns.add(this.button);
-                    this.PName = 'a';
+                    this.PName = '';
             }
         }
         else
         {
             this.button = new Button(" ", new ImageView("ChessPiece/empty.png"));
             this.button.setOnAction(btnHandler);
-            //btns.add(this.button);
-            this.PName = 'a';
+            
+            this.PName = '';
         }
     }
 
