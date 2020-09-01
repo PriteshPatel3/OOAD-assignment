@@ -65,32 +65,35 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         int xSour = Integer.parseInt(String.valueOf(sourceCord.charAt(0)));
         int ySour = Integer.parseInt(String.valueOf(sourceCord.charAt(1)));
         char name = pMap.get(sourceCord).getName();
-        switch(name)
-        {
-            case 'p':
-                movePlus(xDes,yDes,xSour,ySour);
-                return true;
-                //break;
-            case 't':
-                moveTri(xDes,yDes,xSour,ySour);
-                return true;
-                //break;
-            case 'c':
-                moveChev(xDes,yDes,xSour,ySour);
-                return true;
-                //break;
-            case 's':
-                moveSun(xDes,yDes,xSour,ySour);
-                return true;
-                //break;
-            case 'a':
-                moveAr(xDes,yDes,xSour,ySour);
-                return true;
-                //break;
-            default:
-                return false;
-                //break;
+        if(Character.compare(pMap.get(sourceCord).getTeam(),pMap.get(destinationCord).getTeam()) != 0)
+        {  
+            switch(name)
+            {
+                case 'p':
+                    movePlus(xDes,yDes,xSour,ySour);
+                    return true;
+                    //break;
+                case 't':
+                    moveTri(xDes,yDes,xSour,ySour);
+                    return true;
+                    //break;
+                case 'c':
+                    moveChev(xDes,yDes,xSour,ySour);
+                    return true;
+                    //break;
+                case 's':
+                    moveSun(xDes,yDes,xSour,ySour);
+                    return true;
+                    //break;
+                case 'a':
+                    moveAr(xDes,yDes,xSour,ySour);
+                    return true;
+                    //break;
+                default:
+                    return false;
+                    //break;
 
+            }
         }
     }
 
