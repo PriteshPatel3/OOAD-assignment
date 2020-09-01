@@ -100,24 +100,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
 
     private boolean moveAr (int xDes, int yDes, int xSour, int ySour, String sourceCord, String destinationCord)
     {
-        /*if(xDes == 7 || xDes == 0)
-        {
-            pMap.get(sourceCord).getButton().setRotate(180);
-        }*/
-        if(xDes == 7 || xDes == 0)
-        {   
-            //if (Math.abs(xSour - xDes) == 1 || Math.abs(xSour - xDes) == 2)
-            //{
-            /*if(pMap.get(sourceCord).getButton().getGraphic().getRotate() == 0)
-            {
-                pMap.get(sourceCord).getButton().getGraphic().setRotate(180);
-                
-            }
-            else
-                pMap.get(sourceCord).getButton().getGraphic().setRotate(0);
-           // }*/
-            
-        }    
+
         if (Character.compare(pMap.get(sourceCord).getTeam(),'b') == 0)
         {
             if ((Math.abs(ySour - yDes) == 0))
@@ -166,8 +149,8 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 {
                     if(xDes == 7 || xDes == 0)
                     {
-                        if(pMap.get(sourceCord).getButton().getGraphic().getRotate() == 0)
-                            pMap.get(sourceCord).getButton().getGraphic().setRotate(180); 
+                        if(pMap.get(sourceCord).getButton().getGraphic().getRotate() == 180)
+                            pMap.get(sourceCord).getButton().getGraphic().setRotate(0); 
                     }
                     return true;
                 }
