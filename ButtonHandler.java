@@ -20,9 +20,17 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
 
         if (cordStack.size() == 2)
         {
-            //Move Function
-            move(cordStack);
-            cordStack.clear();
+            //get destination and source coordinates
+            String destinationCord = cordStack.pop();
+            String sourceCord = cordStack.pop();
+            //seperate string to int x y
+            xDes = Integer.parseInt(destinationCord.charAt(0));
+            yDes = Integer.parseInt(destinationCord.charAt(1));
+            xSour = Integer.parseInt(sourceCord.charAt(0));
+            ySour = Integer.parseInt(sourceCord.charAt(1));
+            move(destinationCord, sourceCord);
+            //clear stack
+            //cordStack.clear();
         }
 
         System.out.println("X: " + x + " Y: "+ y);
@@ -30,11 +38,9 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         System.out.println(cordStack.size());
     }
 
-    public void move (Stack<String> SStack)
+    public void move (String destinationCord, String sourceCord)
     {
-        String destinationCord = SStack.pop();
-        String sourceCord = SStack.pop();
-
+        //get team name and piece name
         char sourceName = pMap.get(sourceCord).getName();
         char sourceTeam = pMap.get(sourceCord).getTeam();
 
@@ -51,77 +57,85 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         pMap.get(destinationCord).setTeam(sourceTeam);;
     }
 
-    // gets the piece image based on the piece name and team
+    public void moveArr (int xDes, int yDes, int xSour, int ySour)
+    {
+        if ((xSour - xDes == 0) && ((ySour - yDes == 1) || (ySour - yDes == 2))){}
+            //legal
+        else{}
+            //illegal
+    }
+
+        // gets the piece image based on the piece name and team
     public ImageView nameToImage (char name, char team)
     {
-        ImageView icon;
-        switch(name)
-        {
-            case 'p':
-                if (Character.compare(team,'b') == 0)
-                {
-                    icon = new ImageView("ChessPiece/addB.png");
-                }
-
-                else 
-                {
-                    icon = new ImageView("ChessPiece/addR.png");
-                }
-
-                break;
-
-            case 't':
-                if (Character.compare(team,'b') == 0)
-                {
-                    icon = new ImageView("ChessPiece/triangleB.png");
-                }
-
-                else
-                {
-                    icon = new ImageView("ChessPiece/triangleR.png");
-                }
-                break;
-
-            case 'c':
-                if (Character.compare(team,'b') == 0)
-                {
-                    icon = new ImageView("ChessPiece/chevronB.png");
-                }
-
-                else
-                {
-                    icon = new ImageView("ChessPiece/chevronR.png");
-                }
-                break;
-
-            case 's':
-                if (Character.compare(team,'b') == 0)
-                {
-                    icon = new ImageView("ChessPiece/sunB.png");
-                }
-
-                else
-                {
-                    icon = new ImageView("ChessPiece/sunR.png");
-                }
-                break;
-
-            case 'a':
-                if (Character.compare(team,'b') == 0)
-                {
-                    icon = new ImageView("ChessPiece/arrowB.png");
-                }
-
-                else
-                {
-                    icon = new ImageView("ChessPiece/arrowR.png");
-                }
-                break;
-
-            default:
-                icon = new ImageView("ChessPiece/empty.png");
-        }
-
-        return icon;
+            ImageView icon;
+            switch(name)
+            {
+                case 'p':
+                    if (Character.compare(team,'b') == 0)
+                    {
+                        icon = new ImageView("ChessPiece/addB.png");
+                    }
+    
+                    else 
+                    {
+                        icon = new ImageView("ChessPiece/addR.png");
+                    }
+    
+                    break;
+    
+                case 't':
+                    if (Character.compare(team,'b') == 0)
+                    {
+                        icon = new ImageView("ChessPiece/triangleB.png");
+                    }
+    
+                    else
+                    {
+                        icon = new ImageView("ChessPiece/triangleR.png");
+                    }
+                    break;
+    
+                case 'c':
+                    if (Character.compare(team,'b') == 0)
+                    {
+                        icon = new ImageView("ChessPiece/chevronB.png");
+                    }
+    
+                    else
+                    {
+                        icon = new ImageView("ChessPiece/chevronR.png");
+                    }
+                    break;
+    
+                case 's':
+                    if (Character.compare(team,'b') == 0)
+                    {
+                        icon = new ImageView("ChessPiece/sunB.png");
+                    }
+    
+                    else
+                    {
+                        icon = new ImageView("ChessPiece/sunR.png");
+                    }
+                    break;
+    
+                case 'a':
+                    if (Character.compare(team,'b') == 0)
+                    {
+                        icon = new ImageView("ChessPiece/arrowB.png");
+                    }
+    
+                    else
+                    {
+                        icon = new ImageView("ChessPiece/arrowR.png");
+                    }
+                    break;
+    
+                default:
+                    icon = new ImageView("ChessPiece/empty.png");
+            }
+    
+            return icon;
     }
 }
