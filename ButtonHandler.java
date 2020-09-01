@@ -75,6 +75,17 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             //illegal
     }
 
+    public void moveSun (int xDes, int yDes, int xSour, int ySour)
+    {
+        if ((yDes == ySour) && (xDes == xSour))
+        {
+            //System.out.println("No!");
+        }
+        else if ((Math.abs(yDes-ySour) <= 1) || (Math.abs(xDes-xSour) <= 1))
+        {
+            //System.out.println("Sure!");
+        }
+    }
         // gets the piece image based on the piece name and team
     public ImageView nameToImage (char name, char team)
     {
