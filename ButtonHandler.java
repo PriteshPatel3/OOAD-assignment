@@ -23,17 +23,13 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             //get destination and source coordinates
             String destinationCord = cordStack.pop();
             String sourceCord = cordStack.pop();
-            if(checkPiece())
-            {
-                move(destinationCord, sourceCord);
-            }
-
             //checks to see that the user does not press the same button and the source isnt an empty button
             if( !(destinationCord.equals(sourceCord)) && (Character.compare(pMap.get(sourceCord).getName() ,'\0') != 0) )
             {
                 //clear stack
                 //cordStack.clear();
-                move(destinationCord, sourceCord);
+                if(checkPiece(sourceCord, destinationCord) == !false)
+                    move(destinationCord, sourceCord);
             }
         }
 
@@ -61,7 +57,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         pMap.get(destinationCord).setTeam(sourceTeam);;
     }
 
-    private void checkPiece(String sourceCord, String destinationCord)
+    private boolean checkPiece(String sourceCord, String destinationCord)
     {
         //seperate string to int x y
         int xDes = Integer.parseInt(String.valueOf(destinationCord.charAt(0)));
@@ -73,21 +69,27 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         {
             case 'p':
                 movePlus(xDes,yDes,xSour,ySour);
-                break;
+                return true;
+                //break;
             case 't':
-
-                break;
+                moveTri(xDes,yDes,xSour,ySour);
+                return true;
+                //break;
             case 'c':
                 moveChev(xDes,yDes,xSour,ySour);
-                break;
+                return true;
+                //break;
             case 's':
                 moveSun(xDes,yDes,xSour,ySour);
-                break;
+                return true;
+                //break;
             case 'a':
                 moveAr(xDes,yDes,xSour,ySour);
-                break;
+                return true;
+                //break;
             default:
-                break;
+                return false;
+                //break;
 
         }
     }
