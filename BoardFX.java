@@ -23,8 +23,23 @@ public final class BoardFX
         board.setHgap(5);
         board.setVgap(5);
 
+        //create a menu
         Menu menu = new Menu("Options");
-        MenuBar bar = new MenuBar();
+		
+		//create menu options
+		MenuItem opt1 = new MenuItem("Save Game");
+		MenuItem opt2 = new MenuItem("Load Game");
+		MenuItem opt3 = new MenuItem("Restart Game");
+		
+		//add menu options to menu
+		menu.getItems().add(opt1);
+		menu.getItems().add(opt2);
+		menu.getItems().add(opt3);
+		
+		//create menu bar
+		MenuBar bar = new MenuBar();
+		
+		//add menu to menubar
         bar.getMenus().add(menu);
         
         //annoucement text
