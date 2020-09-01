@@ -43,7 +43,7 @@ public class Piece{
                     this.team = 'b';
                     break;
                 case 1:
-                case 5;
+                case 5:
                     this.button = new Button(" ", new ImageView("ChessPiece/triangleB.png"));
                     this.button.setOnAction(btnHandler);
                     this.PName = 't';
@@ -77,7 +77,7 @@ public class Piece{
                 case 0:
                 case 2:
                 case 4:
-                case 6;
+                case 6:
                     this.button = new Button(" ", tempRotate);
                     this.button.setOnAction(btnHandler);
                     this.PName = 'a';
@@ -123,7 +123,7 @@ public class Piece{
                 default:
                     this.button = new Button(" ", new ImageView("ChessPiece/empty.png"));
                     this.button.setOnAction(btnHandler);
-                    this.PName = '';
+                    this.PName = '\0';
             }
         }
         else if(this.y == 6)
@@ -141,7 +141,7 @@ public class Piece{
                 default:
                     this.button = new Button(" ", new ImageView("ChessPiece/empty.png"));
                     this.button.setOnAction(btnHandler);
-                    this.PName = '';
+                    this.PName = '\0';
             }
         }
         else
@@ -149,7 +149,7 @@ public class Piece{
             this.button = new Button(" ", new ImageView("ChessPiece/empty.png"));
             this.button.setOnAction(btnHandler);
             
-            this.PName = '';
+            this.PName = '\0';
         }
     }
 
