@@ -95,6 +95,8 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
 
             }
         }
+        else 
+            return false;
     }
 
     private void moveAr (int xDes, int yDes, int xSour, int ySour)
