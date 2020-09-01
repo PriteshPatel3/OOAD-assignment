@@ -44,17 +44,17 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         char sourceName = pMap.get(sourceCord).getName();
         char sourceTeam = pMap.get(sourceCord).getTeam();
 
-        ImageView icon = nameToImage(sourceName,sourceTeam);
+        //ImageView icon = nameToImage(sourceName,sourceTeam);
+
+        //sets destination icon
+        pMap.get(destinationCord).getButton().setGraphic(pMap.get(sourceCord).getButton().getGraphic());
+        pMap.get(destinationCord).setName(sourceName);
+        pMap.get(destinationCord).setTeam(sourceTeam);;
 
         //sets source button as clear
         pMap.get(sourceCord).getButton().setGraphic(new ImageView("ChessPiece/empty.png"));
         pMap.get(sourceCord).setName('\0');
         pMap.get(sourceCord).setTeam('\0');
-
-        //sets destination icon
-        pMap.get(destinationCord).getButton().setGraphic(icon);
-        pMap.get(destinationCord).setName(sourceName);
-        pMap.get(destinationCord).setTeam(sourceTeam);;
     }
 
     private boolean checkPiece(String sourceCord, String destinationCord)
@@ -84,7 +84,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                     //return true;
                     //break;
                 case 'a':
-                    return moveAr(xDes,yDes,xSour,ySour);
+                    return moveAr(xDes,yDes,xSour,ySour,sourceCord);
                     //return true;
                     //break;
                 default:
@@ -98,19 +98,41 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
     }
 
-    private boolean moveAr (int xDes, int yDes, int xSour, int ySour)
+    private boolean moveAr (int xDes, int yDes, int xSour, int ySour, String sourceCord)
     {
-        if ((Math.abs(ySour - yDes) == 0))
-        {
-            if ((xSour - xDes) == -1 || (xSour - xDes) == -2)
-                return true;
+            if (Character.compare(pMap.get(sourceCord).getTeam(),'b') == 0)
+            {
+                if ((Math.abs(ySour - yDes) == 0))
+                {
+                    if ((xSour - xDes) == -1 || (xSour - xDes) == -2)
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            else if (Character.compare(pMap.get(sourceCord).getTeam(),'r') == 0)
+            {
+                if ((Math.abs(ySour - yDes) == 0))
+                {
+                    if ((xSour - xDes) == 1 || (xSour - xDes) == 2)
+                        return true;
+                    else
+                        return false;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
             else
                 return false;
-        }
-        else
-        {
-            return false;
-        }
+        
     }
 
     private boolean moveSun (int xDes, int yDes, int xSour, int ySour)
@@ -168,76 +190,5 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         
 
         // gets the piece image based on the piece name and team
-    private ImageView nameToImage (char name, char team)
-    {
-            ImageView icon;
-            switch(name)
-            {
-                case 'p':
-                    if (Character.compare(team,'b') == 0)
-                    {
-                        icon = new ImageView("ChessPiece/addB.png");
-                    }
-    
-                    else 
-                    {
-                        icon = new ImageView("ChessPiece/addR.png");
-                    }
-    
-                    break;
-    
-                case 't':
-                    if (Character.compare(team,'b') == 0)
-                    {
-                        icon = new ImageView("ChessPiece/triangleB.png");
-                    }
-    
-                    else
-                    {
-                        icon = new ImageView("ChessPiece/triangleR.png");
-                    }
-                    break;
-    
-                case 'c':
-                    if (Character.compare(team,'b') == 0)
-                    {
-                        icon = new ImageView("ChessPiece/chevronB.png");
-                    }
-    
-                    else
-                    {
-                        icon = new ImageView("ChessPiece/chevronR.png");
-                    }
-                    break;
-    
-                case 's':
-                    if (Character.compare(team,'b') == 0)
-                    {
-                        icon = new ImageView("ChessPiece/sunB.png");
-                    }
-    
-                    else
-                    {
-                        icon = new ImageView("ChessPiece/sunR.png");
-                    }
-                    break;
-    
-                case 'a':
-                    if (Character.compare(team,'b') == 0)
-                    {
-                        icon = new ImageView("ChessPiece/arrowB.png");
-                    }
-    
-                    else
-                    {
-                        icon = new ImageView("ChessPiece/arrowR.png");
-                    }
-                    break;
-    
-                default:
-                    icon = new ImageView("ChessPiece/empty.png");
-            }
-    
-            return icon;
-    }
+
 }
