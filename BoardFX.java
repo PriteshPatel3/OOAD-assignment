@@ -76,7 +76,7 @@ public final class BoardFX
         return board.getColumnIndex(b);
     }
 
-    public GridPane getBoard()
+    public static GridPane getBoard()
     {
         return board;
     }

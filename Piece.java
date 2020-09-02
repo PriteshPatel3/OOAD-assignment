@@ -17,6 +17,7 @@ public class Piece{
     private char PName;
     private Button button;
     private char team;
+    private static int turn;
     ButtonHandler btnHandler = new ButtonHandler();
     Piece (int x,int y)
     {
@@ -48,6 +49,17 @@ public class Piece{
     public void setTeam(char team)
     {
         this.team = team;
+    }
+
+    public int getTurn()
+    {
+        
+        return turn;
+    }
+
+    public void increaseTurn()
+    {
+        turn++;
     }
 
     private void setUpPiece() 

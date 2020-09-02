@@ -28,19 +28,17 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             {
                 //clear stack
                 //cordStack.clear();
-                if(checkPiece(sourceCord, destinationCord) == !false)
-                    move(destinationCord, sourceCord);
+                if(checkTurn(sourceCord))
+                {
+                    if(checkPiece(sourceCord, destinationCord) == true)
+                        move(destinationCord, sourceCord);
+                }
             }
         }
 
         System.out.println("X: " + x + " Y: "+ y);
         System.out.println("Name:" + pMap.get(sb.toString()).getName());
         System.out.println(cordStack.size());
-    }
-
-    public void handle(int i)
-    {
-        System.out.println("Testing");
     }
 
     private void move (String destinationCord, String sourceCord)
@@ -60,6 +58,33 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         pMap.get(sourceCord).getButton().setGraphic(new ImageView("ChessPiece/empty.png"));
         pMap.get(sourceCord).setName('\0');
         pMap.get(sourceCord).setTeam('\0');
+    }
+
+    private boolean checkTurn(String sourceCord)
+    {
+        int turn = pMap.get(sourceCord).getTurn();
+        if (turn % 2 == 0)
+        {
+            if (Character.compare(pMap.get(sourceCord).getTeam(),'r') == 0)
+            {   
+                pMap.get(sourceCord).increaseTurn();
+                BoardFX.getBoard().setRotate(180);
+                return true;
+            }
+            else
+                return false;
+        }
+        else
+        {
+            if (Character.compare(pMap.get(sourceCord).getTeam(),'b') == 0)
+            {
+                pMap.get(sourceCord).increaseTurn();
+                BoardFX.getBoard().setRotate(0);
+                return true;
+            }
+            else
+                return false;
+        }
     }
 
     private boolean checkPiece(String sourceCord, String destinationCord)
@@ -226,8 +251,6 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
     }
         
-
-        // gets the piece image based on the piece name and team
 
 }
 
