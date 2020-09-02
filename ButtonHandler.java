@@ -44,6 +44,9 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         char sourceName = pMap.get(sourceCord).getName();
         char sourceTeam = pMap.get(sourceCord).getTeam();
 
+        pMap.get(sourceCord).chgTeamMoves(sourceTeam); //Add Team Moves
+        switchPieces(sourceTeam, pMap.get(sourceCord).getTeamMoves(sourceTeam)); //Check if Enough Moves to switch Pieces for a team
+
         //ImageView icon = nameToImage(sourceName,sourceTeam);
 
         //sets destination icon
@@ -55,6 +58,8 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         pMap.get(sourceCord).getButton().setGraphic(new ImageView("ChessPiece/empty.png"));
         pMap.get(sourceCord).setName('\0');
         pMap.get(sourceCord).setTeam('\0');
+
+        
     }
 
     private boolean checkPiece(String sourceCord, String destinationCord)
@@ -70,7 +75,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             switch(name)
             {
                 case 'p':
-                    return movePlus(xDes,yDes,xSour,ySour);
+                    movePlus(xDes,yDes,xSour,ySour);
                     //break;
                 case 't':
                     return moveTri(xDes,yDes,xSour,ySour);
@@ -222,6 +227,54 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
     }
         
 
-        // gets the piece image based on the piece name and team
-
+    //gets 
+    public void switchPieces(char team, int moves)
+    {
+        System.out.println("Current Team :" + team);
+        if (moves % 2 == 0)
+        {
+            for(Map.Entry<String, Piece> gridEntry : pMap.entrySet())
+            {
+                Piece tempPiece = gridEntry.getValue();
+                System.out.println("Team Name :" + tempPiece.getTeam());
+                switch (tempPiece.getName())
+                {
+                    //Dis wont work
+                    case 't':
+                        if (tempPiece.getTeam() == team && tempPiece.getTeam() == 'r')
+                        {
+                            tempPiece.getButton().setGraphic(new ImageView("ChessPiece/addR.png"));
+                            tempPiece.setName('p');
+                            System.out.println("Red Triangle Changed");
+                        }
+                            
+                        else if (tempPiece.getTeam() == team && tempPiece.getTeam() == 'b')
+                        {
+                            tempPiece.getButton().setGraphic(new ImageView("ChessPiece/addB.png"));
+                            tempPiece.setName('p');
+                            System.out.println("Blue Triangle Changed");
+                        }                
+                        break;
+                    case 'p':
+                        if (tempPiece.getTeam() == team && tempPiece.getTeam() == 'r')
+                        {
+                            tempPiece.getButton().setGraphic(new ImageView("ChessPiece/triangleR.png"));
+                            tempPiece.setName('t');
+                            System.out.println("Red Plus Changed");
+                        }
+                        else if (tempPiece.getTeam() == team && tempPiece.getTeam() == 'b')
+                        {
+                            tempPiece.getButton().setGraphic(new ImageView("ChessPiece/triangleB.png")); 
+                            tempPiece.setName('t');
+                            System.out.println("Blue Triangle Changed");
+                        } 
+                        break;
+                }
+            }
+        }
+        else
+        {
+            System.out.println("Now is not the time to switch Pieces boi!");
+        }
+    }
 }

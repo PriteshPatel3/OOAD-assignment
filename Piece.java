@@ -17,11 +17,14 @@ public class Piece{
     private char PName;
     private Button button;
     private char team;
+    static int[] teamMoves = new int[2]; //to check team movements
     ButtonHandler btnHandler = new ButtonHandler();
     Piece (int x,int y)
     {
         this.x = x;
-        this.y = y;     
+        this.y = y;
+        teamMoves[0] = 0; //Red
+        teamMoves[1] = 0; //Blue    
         setUpPiece(); //setup button based X Y on coordinates
     }
 
@@ -48,6 +51,31 @@ public class Piece{
     public void setTeam(char team)
     {
         this.team = team;
+    }
+
+    public void chgTeamMoves(char team)
+    {
+        switch(team)
+        {
+            case 'r':
+                teamMoves[0]++;
+                System.out.println("Red :" + teamMoves[0]);
+                break;
+            case 'b':
+                teamMoves[1]++;
+                System.out.println("Blue :" + teamMoves[1]);
+                break;
+            default:
+                break;
+        }
+    }
+
+    public int getTeamMoves(char team)
+    {
+        if (team == 'r')
+            return teamMoves[0];
+        else //For Blue Team
+            return teamMoves[1];
     }
 
     private void setUpPiece() 
