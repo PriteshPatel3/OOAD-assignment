@@ -237,6 +237,6 @@ class MenuHandler extends ButtonHandler
     public void handle(ActionEvent e)
     {
         MenuItem menu = (MenuItem)e.getSource();
-        System.out.println(menu.getText());
+        System.out.println(menu.getId());
     }
 }

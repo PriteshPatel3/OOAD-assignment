@@ -28,6 +28,7 @@ public final class BoardFX
 		
 		//create menu options
         MenuItem opt1 = new MenuItem("Save Game");
+        opt1.setId("1");
         opt1.setOnAction(menuHand);
         MenuItem opt2 = new MenuItem("Load Game");
         opt2.setOnAction(menuHand);
