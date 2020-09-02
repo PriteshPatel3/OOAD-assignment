@@ -31,7 +31,10 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 if(checkTurn(sourceCord))
                 {
                     if(checkPiece(sourceCord, destinationCord) == true)
+                    {
                         move(destinationCord, sourceCord);
+                        switchPieces(sourceCord);
+                    }
                 }
             }
         }
@@ -250,7 +253,75 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             return false;
         }
     }
-        
+
+    public void switchPieces(String sourceCord)
+    {
+        int turn = pMap.get(sourceCord).getTurn();
+        //int turn = pMap.get(sourceCord).getTurn();
+        //System.out.println("Current Team :" + team);
+        if (turn % 4 == 0 )
+        {
+            for(Map.Entry<String, Piece> gridEntry : pMap.entrySet())
+            {
+                Piece tempPiece = gridEntry.getValue();
+                //System.out.println("Team Name :" + tempPiece.getTeam());
+                switch (tempPiece.getName())
+                {
+                    //Dis wont work
+                    case 't':
+                        if(Character.compare(tempPiece.getTeam(),'r') == 0)
+                        {
+                            tempPiece.getButton().setGraphic(new ImageView("ChessPiece/addR.png"));
+                            tempPiece.setName('p');   
+                        }         
+                        break;
+                    case 'p':
+                        if(Character.compare(tempPiece.getTeam(),'r') == 0)
+                        {
+                            tempPiece.getButton().setGraphic(new ImageView("ChessPiece/triangleR.png"));
+                            tempPiece.setName('t');
+                        }
+                        break;
+                    default:
+                        break;
+                        //return false;
+                }
+            }
+        }
+        else if (turn % 4 == 1 && turn != 1)
+        {
+            for(Map.Entry<String, Piece> gridEntry : pMap.entrySet())
+            {
+                Piece tempPiece = gridEntry.getValue();
+                //System.out.println("Team Name :" + tempPiece.getTeam());
+                switch (tempPiece.getName())
+                {
+                    //Dis wont work
+                    case 't':
+                        if(Character.compare(tempPiece.getTeam(),'b') == 0)
+                        {
+                            tempPiece.getButton().setGraphic(new ImageView("ChessPiece/addB.png"));
+                            tempPiece.setName('p');   
+                        } 
+                            //return true;            
+                        break;
+                    case 'p':
+                        if(Character.compare(tempPiece.getTeam(),'b') == 0)
+                        {
+                            tempPiece.getButton().setGraphic(new ImageView("ChessPiece/triangleB.png"));
+                            tempPiece.setName('t');
+                        }
+                        //return true;
+                        //System.out.println("Red Plus Changed");
+                        break;
+                    default:
+                        break;
+                        //return false;
+                }
+            }
+        }
+            //return false;
+    }
 
 }
 
