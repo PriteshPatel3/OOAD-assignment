@@ -17,6 +17,8 @@ public class Piece{
     private char PName;
     private Button button;
     private char team;
+    private int moves;
+
     ButtonHandler btnHandler = new ButtonHandler();
     Piece (int x,int y)
     {
