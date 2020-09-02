@@ -38,6 +38,11 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         System.out.println(cordStack.size());
     }
 
+    public void handle(int i)
+    {
+        System.out.println("Testing");
+    }
+
     private void move (String destinationCord, String sourceCord)
     {
         //get team name and piece name
@@ -224,4 +229,14 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
 
         // gets the piece image based on the piece name and team
 
+}
+
+class MenuHandler extends ButtonHandler
+{
+    @Override
+    public void handle(ActionEvent e)
+    {
+        MenuItem menu = (MenuItem)e.getSource();
+        System.out.println(menu.getText());
+    }
 }

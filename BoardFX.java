@@ -16,7 +16,7 @@ import javafx.event.EventHandler;
 public final class BoardFX
 {   
     static GridPane board = new GridPane();
-
+    ButtonHandler menuHand = new MenuHandler();
     BoardFX(Stage primaryStage)
     {
         board.setAlignment(Pos.CENTER);
@@ -27,9 +27,12 @@ public final class BoardFX
         Menu menu = new Menu("Options");
 		
 		//create menu options
-		MenuItem opt1 = new MenuItem("Save Game");
-		MenuItem opt2 = new MenuItem("Load Game");
-		MenuItem opt3 = new MenuItem("Restart Game");
+        MenuItem opt1 = new MenuItem("Save Game");
+        opt1.setOnAction(menuHand);
+        MenuItem opt2 = new MenuItem("Load Game");
+        opt2.setOnAction(menuHand);
+        MenuItem opt3 = new MenuItem("Restart Game");
+        opt3.setOnAction(menuHand);
 		
 		//add menu options to menu
 		menu.getItems().add(opt1);
