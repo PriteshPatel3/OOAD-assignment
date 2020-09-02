@@ -30,9 +30,13 @@ public final class BoardFX
         MenuItem opt1 = new MenuItem("Save Game");
         opt1.setId("1");
         opt1.setOnAction(menuHand);
+
         MenuItem opt2 = new MenuItem("Load Game");
+        opt2.setId("2");
         opt2.setOnAction(menuHand);
+
         MenuItem opt3 = new MenuItem("Restart Game");
+        opt3.setId("3");
         opt3.setOnAction(menuHand);
 		
 		//add menu options to menu
