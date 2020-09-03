@@ -1,8 +1,11 @@
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import java.util.*;
+import java.io.*;
 import javafx.scene.image.*;
 import javafx.scene.control.*;
+import java.time.*;
+import java.time.format.*;
 
 public class ButtonHandler extends MainGame implements EventHandler<ActionEvent> 
 {
@@ -331,6 +334,235 @@ class MenuHandler extends ButtonHandler
     public void handle(ActionEvent e)
     {
         MenuItem menu = (MenuItem)e.getSource();
-        System.out.println(menu.getId());
+        int id = Integer.parseInt(menu.getId());
+
+        switch(id)
+        {
+            case 1:
+                try
+                {
+                    saveGame();
+                }
+
+                catch (IOException f)
+                {
+                    System.out.println("File not created");
+                }
+                
+
+                break;
+
+            case 2:
+                try
+                {
+                    loadGame();
+                }
+
+                catch (IOException g)
+                {
+                    System.out.println("File not loaded");
+                }
+                
+
+                break;
+
+            case 3:
+                break;
+
+        }
+
+
+    }
+
+    public void saveGame() throws IOException
+    {
+        
+            //create file
+            File savedFile = new File("saveGame.txt");
+
+            //create file writer class
+            FileWriter fw = new FileWriter(savedFile);
+
+            //create print writer class
+            PrintWriter pw = new PrintWriter(fw);
+
+            //get date and time
+            DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm");  
+            LocalDateTime now = LocalDateTime.now();  
+            String dateTime = dtf.format(now);
+
+            //Prints the date and time to the first line of text
+            pw.println("Date/Time: " + dateTime);
+            pw.println("XY: x = x Coordinate: y = y Coordinate ");
+            pw.println("p = PLus: t = Triangle: c = Chevron: s = Sun: a = Arrow: * = Empty");
+
+            for (int i = 0; i<8; i++)
+            {
+                pw.println(" ");
+                pw.println("Row: " + i);
+                for (int j = 0; j<7; j++)
+                {
+                    StringBuilder sb = new StringBuilder();
+                    sb.append(i);
+                    sb.append(j);
+                    
+                    //Get name
+                    char name = pMap.get(sb.toString()).getName();
+                    char player = pMap.get(sb.toString()).getTeam();
+
+                    //if empty declare as *
+                    if(Character.compare(name,'\0') == 0)
+                    {
+                        name = '*';
+                        player = '*';
+                    }
+
+
+
+                    pw.println(sb.toString() + ":" + name + ":" + player);
+                }
+            }
+
+            pw.close();
+
+    }
+
+    public void loadGame() throws IOException
+    {
+        File file = new File("D:\\uni\\OOAd\\assignment\\Github Code\\OOAD-assignment\\OOAD-assignment\\saveGame.txt"); 
+
+        ArrayList<String> cordArray = new ArrayList<String>();
+        ArrayList<String> nameArray = new ArrayList<String>();
+        ArrayList<String> teamArray = new ArrayList<String>();
+
+        
+        BufferedReader br = new BufferedReader(new FileReader(file)); 
+        
+        String st; 
+        
+        for (int i = 0; i<4; i++)
+        {
+            st = br.readLine();
+        }
+
+        for (int j = 0; j<8; j++)
+        {
+            //skips row declaration line
+            st = br.readLine();
+
+            //gets the info for cords and pieces
+            for (int k = 0; k<7; k++)
+            {
+                st = br.readLine();
+                
+                String[] arrOfStr = st.split(":", 3);
+
+                cordArray.add(arrOfStr[0]);
+                nameArray.add(arrOfStr[1]);
+                teamArray.add(arrOfStr[2]);
+
+            }
+            
+            //skips white space
+            st = br.readLine();
+
+        }
+
+        for (int r = 0; r<56; r++)
+        {
+            String cord = cordArray.get(r);
+            
+            char piece = nameArray.get(r).charAt(0);
+            char team = teamArray.get(r).charAt(0);
+            
+            if(Character.compare(piece,'*') == 0)
+            {
+                piece = '\0';
+                team = '\0';
+            }
+
+            ImageView icon = new ImageView();
+            icon = nameToImage(piece,team);
+
+
+            
+            pMap.get(cord).getButton().setGraphic(icon);
+            pMap.get(cord).setName(piece);
+            pMap.get(cord).setTeam(team);
+        }
+  
+    }
+
+    private ImageView nameToImage (char name, char team)
+    {
+        ImageView icon;
+        switch(name)
+        {
+            case 'p':
+                if (Character.compare(team,'b') == 0)
+                {
+                    icon = new ImageView("ChessPiece/addB.png");
+                }
+
+                else 
+                {
+                    icon = new ImageView("ChessPiece/addR.png");
+                }
+
+                break;
+
+            case 't':
+                if (Character.compare(team,'b') == 0)
+                {
+                    icon = new ImageView("ChessPiece/triangleB.png");
+                }
+
+                else
+                {
+                    icon = new ImageView("ChessPiece/triangleR.png");
+                }
+                break;
+
+            case 'c':
+                if (Character.compare(team,'b') == 0)
+                {
+                    icon = new ImageView("ChessPiece/chevronB.png");
+                }
+
+                else
+                {
+                    icon = new ImageView("ChessPiece/chevronR.png");
+                }
+                break;
+
+            case 's':
+                if (Character.compare(team,'b') == 0)
+                {
+                    icon = new ImageView("ChessPiece/sunB.png");
+                }
+
+                else
+                {
+                    icon = new ImageView("ChessPiece/sunR.png");
+                }
+                break;
+
+            case 'a':
+                if (Character.compare(team,'b') == 0)
+                {
+                    icon = new ImageView("ChessPiece/arrowB.png");
+                }
+
+                else
+                {
+                    icon = new ImageView("ChessPiece/arrowR.png");
+                }
+                break;
+
+            default:
+                icon = new ImageView("ChessPiece/empty.png");
+        }
+
+        return icon;
     }
 }
