@@ -327,61 +327,104 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 }
             }
         }
-            //return false;
+        //return false;
     }
 
     public boolean checkObstaclesPlus(int xDes, int yDes, int xSour, int ySour)
     {
         int tempCoordX, tempCoordY;
-        for(Map.Entry<String, Piece> gridEntry : pMap.entrySet())
+        StringBuilder sb = new StringBuilder();
+        if (yDes == ySour && (xDes < xSour)) //Moving Vertically at X Axis in a decreasing movement, i.e (from X7 -> X5)
         {
-            String tempCoord = gridEntry.getKey();
-            tempCoordX = Integer.parseInt(String.valueOf(tempCoord.charAt(0)));
-            tempCoordY = Integer.parseInt(String.valueOf(tempCoord.charAt(1)));
-
-            if (yDes == ySour && yDes == tempCoordY && (xDes < xSour)) //Moving Vertically at X Axis in a decreasing movement, i.e (from X7 -> X5)
+            for (int i = xDes; i < xSour; i++)
             {
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(i);
+                sb.append(yDes);
                 
-                for (int i = (xDes + 1); i < xSour; i++)
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) 
                 {
-                    System.out.println("It manages to go in");
-                    StringBuilder sb = new StringBuilder(); // i use to append i j so i can make it as key
-                    sb.append(yDes);
-                    sb.append(i);
-                    String coord = sb.toString(); // yDes + j in string
-                    Piece tempPiece = pMap.get(coord);
-                    System.out.println(tempPiece.getName() + " " + coord);
-
-                    if (Character.compare(tempPiece.getName(),'\0') != 0) 
-                    {
-                        System.out.println("Theres an obstacle in the way");
-                        return false;
-                    }
+                    System.out.println("There's an obstacle in the way of X1");
+                    return false;
                 }
             }
-            else if (yDes == ySour && yDes == tempCoordY && (xDes > xSour)) //Moving Vertically at X Axis in a increasing movement, i.e (from X5 -> X7)
+        }
+        else if (yDes == ySour && (xDes > xSour))
+        {
+            for (int i = xDes; i > xSour; i--) //Move Vertical at X Axis in increasing direction
             {
-                for (int i = (xDes - 1); i >= xSour; i--)
-                {
-                    System.out.println("It manages to go in");
-                    StringBuilder sb = new StringBuilder(); // to combine two ints as a key
-                    sb.append(yDes);
-                    sb.append(i);
-                    String coord = sb.toString(); // yDes + j in string
-                    Piece tempPiece = pMap.get(coord);
-                    System.out.println(tempPiece.getName() + " " + coord);
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
 
-                    if (Character.compare(tempPiece.getName(),'\0') != 0) 
-                    {
-                        System.out.println("Theres an obstacle in the way");
-                        return false;
-                    }
+                sb.append(i);
+                sb.append(yDes);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) 
+                {
+                    System.out.println("There's an obstacle in the way of X2");
+                    return false;
                 }
             }
-            else
+        }
+        else if (xDes == xSour && (yDes < ySour))
+        {
+            for (int i = yDes; i < ySour; i++) //Move Vertical at X Axis in increasing direction
             {
-                System.out.println("This logic is not implemented yet");
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(xDes);
+                sb.append(i);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) 
+                {
+                    System.out.println("There's an obstacle in the way of Y1");
+                    return false;
+                }
             }
+        }
+        else if (xDes == xSour && (yDes > ySour))
+        {
+            for (int i = yDes; i > ySour; i--) //Move Vertical at X Axis in increasing direction
+            {
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(xDes);
+                sb.append(i);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) 
+                {
+                    System.out.println("There's an obstacle in the way of Y2");
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            System.out.println("Logic Failed, you smol pp");
         }
         return true;
     }
