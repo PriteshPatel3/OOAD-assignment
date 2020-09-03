@@ -31,19 +31,20 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             {
                 //clear stack
                 //cordStack.clear();
-                if(checkPiece(sourceCord, destinationCord) == !false)
-                    move(destinationCord, sourceCord);
+                if(checkTurn(sourceCord))
+                {
+                    if(checkPiece(sourceCord, destinationCord) == true)
+                    {
+                        move(destinationCord, sourceCord);
+                        switchPieces(sourceCord);
+                    }
+                }
             }
         }
 
         System.out.println("X: " + x + " Y: "+ y);
         System.out.println("Name:" + pMap.get(sb.toString()).getName());
         System.out.println(cordStack.size());
-    }
-
-    public void handle(int i)
-    {
-        System.out.println("Testing");
     }
 
     private void move (String destinationCord, String sourceCord)
@@ -57,12 +58,39 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         //sets destination icon
         pMap.get(destinationCord).getButton().setGraphic(pMap.get(sourceCord).getButton().getGraphic());
         pMap.get(destinationCord).setName(sourceName);
-        pMap.get(destinationCord).setTeam(sourceTeam);;
+        pMap.get(destinationCord).setTeam(sourceTeam);
 
         //sets source button as clear
         pMap.get(sourceCord).getButton().setGraphic(new ImageView("ChessPiece/empty.png"));
         pMap.get(sourceCord).setName('\0');
         pMap.get(sourceCord).setTeam('\0');
+    }
+
+    private boolean checkTurn(String sourceCord)
+    {
+        int turn = pMap.get(sourceCord).getTurn();
+        if (turn % 2 == 0)
+        {
+            if (Character.compare(pMap.get(sourceCord).getTeam(),'r') == 0)
+            {   
+                pMap.get(sourceCord).increaseTurn();
+                BoardFX.getBoard().setRotate(180);
+                return true;
+            }
+            else
+                return false;
+        }
+        else
+        {
+            if (Character.compare(pMap.get(sourceCord).getTeam(),'b') == 0)
+            {
+                pMap.get(sourceCord).increaseTurn();
+                BoardFX.getBoard().setRotate(0);
+                return true;
+            }
+            else
+                return false;
+        }
     }
 
     private boolean checkPiece(String sourceCord, String destinationCord)
@@ -228,9 +256,75 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             return false;
         }
     }
-        
 
-        // gets the piece image based on the piece name and team
+    public void switchPieces(String sourceCord)
+    {
+        int turn = pMap.get(sourceCord).getTurn();
+        //int turn = pMap.get(sourceCord).getTurn();
+        //System.out.println("Current Team :" + team);
+        if (turn % 4 == 0 )
+        {
+            for(Map.Entry<String, Piece> gridEntry : pMap.entrySet())
+            {
+                Piece tempPiece = gridEntry.getValue();
+                //System.out.println("Team Name :" + tempPiece.getTeam());
+                switch (tempPiece.getName())
+                {
+                    //Dis wont work
+                    case 't':
+                        if(Character.compare(tempPiece.getTeam(),'r') == 0)
+                        {
+                            tempPiece.getButton().setGraphic(new ImageView("ChessPiece/addR.png"));
+                            tempPiece.setName('p');   
+                        }         
+                        break;
+                    case 'p':
+                        if(Character.compare(tempPiece.getTeam(),'r') == 0)
+                        {
+                            tempPiece.getButton().setGraphic(new ImageView("ChessPiece/triangleR.png"));
+                            tempPiece.setName('t');
+                        }
+                        break;
+                    default:
+                        break;
+                        //return false;
+                }
+            }
+        }
+        else if (turn % 4 == 1 && turn != 1)
+        {
+            for(Map.Entry<String, Piece> gridEntry : pMap.entrySet())
+            {
+                Piece tempPiece = gridEntry.getValue();
+                //System.out.println("Team Name :" + tempPiece.getTeam());
+                switch (tempPiece.getName())
+                {
+                    //Dis wont work
+                    case 't':
+                        if(Character.compare(tempPiece.getTeam(),'b') == 0)
+                        {
+                            tempPiece.getButton().setGraphic(new ImageView("ChessPiece/addB.png"));
+                            tempPiece.setName('p');   
+                        } 
+                            //return true;            
+                        break;
+                    case 'p':
+                        if(Character.compare(tempPiece.getTeam(),'b') == 0)
+                        {
+                            tempPiece.getButton().setGraphic(new ImageView("ChessPiece/triangleB.png"));
+                            tempPiece.setName('t');
+                        }
+                        //return true;
+                        //System.out.println("Red Plus Changed");
+                        break;
+                    default:
+                        break;
+                        //return false;
+                }
+            }
+        }
+            //return false;
+    }
 
 }
 
