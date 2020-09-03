@@ -8,6 +8,7 @@ import javafx.scene.image.*;
 import javafx.scene.text.*;
 import java.util.ArrayList;
 import javafx.scene.Node;
+import javafx.stage.*;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,7 +18,11 @@ public final class BoardFX
 {   
     static GridPane board = new GridPane();
     ButtonHandler menuHand = new MenuHandler();
+    
+
     BoardFX(Stage primaryStage)
+
+
     {
         board.setAlignment(Pos.CENTER);
         board.setHgap(5);

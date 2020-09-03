@@ -6,6 +6,7 @@ import javafx.scene.image.*;
 import javafx.scene.control.*;
 import java.time.*;
 import java.time.format.*;
+import javafx.stage.*;
 
 public class ButtonHandler extends MainGame implements EventHandler<ActionEvent> 
 {
@@ -137,6 +138,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
     private boolean moveAr (int xDes, int yDes, int xSour, int ySour, String sourceCord, String destinationCord)
     {
 
+        //Blue team
         if (Character.compare(pMap.get(sourceCord).getTeam(),'b') == 0)
         {
             if ((Math.abs(ySour - yDes) == 0))
@@ -168,6 +170,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             }
         }
 
+        //Red team
         else if (Character.compare(pMap.get(sourceCord).getTeam(),'r') == 0)
         {
             if ((Math.abs(ySour - yDes) == 0))
@@ -335,13 +338,29 @@ class MenuHandler extends ButtonHandler
     {
         MenuItem menu = (MenuItem)e.getSource();
         int id = Integer.parseInt(menu.getId());
+        FileChooser chooser = new FileChooser();
+        DirectoryChooser dChooser = new DirectoryChooser();
 
         switch(id)
         {
             case 1:
                 try
                 {
-                    saveGame();
+                    File saveDirectory = dChooser.showDialog(MainGame.getStage());
+                    String directory = saveDirectory.getAbsolutePath();
+                    StringBuilder name = new StringBuilder();
+
+                    for (int i = 0; i < directory.length(); i++) 
+                    {
+                        if (directory.charAt(i) == '\\') 
+                            name.append("\\");
+                    
+                        name.append(directory.charAt(i));
+                    }
+                    
+                    name.append("\\\\Webale_save.txt");
+                    
+                    saveGame(name.toString());
                 }
 
                 catch (IOException f)
@@ -355,7 +374,8 @@ class MenuHandler extends ButtonHandler
             case 2:
                 try
                 {
-                    loadGame();
+                    File loadFile = chooser.showOpenDialog(MainGame.getStage());
+                    loadGame(loadFile);
                 }
 
                 catch (IOException g)
@@ -374,11 +394,11 @@ class MenuHandler extends ButtonHandler
 
     }
 
-    public void saveGame() throws IOException
+    public void saveGame(String fileName) throws IOException
     {
         
             //create file
-            File savedFile = new File("saveGame.txt");
+            File savedFile = new File(fileName);
 
             //create file writer class
             FileWriter fw = new FileWriter(savedFile);
@@ -427,9 +447,9 @@ class MenuHandler extends ButtonHandler
 
     }
 
-    public void loadGame() throws IOException
+    public void loadGame(File file) throws IOException
     {
-        File file = new File("D:\\uni\\OOAd\\assignment\\Github Code\\OOAD-assignment\\OOAD-assignment\\saveGame.txt"); 
+        
 
         ArrayList<String> cordArray = new ArrayList<String>();
         ArrayList<String> nameArray = new ArrayList<String>();
