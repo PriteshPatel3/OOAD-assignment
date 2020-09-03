@@ -98,12 +98,21 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         int xSour = Integer.parseInt(String.valueOf(sourceCord.charAt(0)));
         int ySour = Integer.parseInt(String.valueOf(sourceCord.charAt(1)));
         char name = pMap.get(sourceCord).getName();
+
         if(Character.compare(pMap.get(sourceCord).getTeam(),pMap.get(destinationCord).getTeam()) != 0)
         {  
             switch(name)
             {
                 case 'p':
-                    return movePlus(xDes,yDes,xSour,ySour);
+                    if(checkObstaclesPlus(xDes,yDes,xSour,ySour)) //Check for any obstacles
+                    {
+                        return movePlus(xDes,yDes,xSour,ySour);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    
                     //break;
                 case 't':
                     return moveTri(xDes,yDes,xSour,ySour);
@@ -259,7 +268,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         int turn = pMap.get(sourceCord).getTurn();
         //int turn = pMap.get(sourceCord).getTurn();
         //System.out.println("Current Team :" + team);
-        if (turn % 4 == 0 )
+        if (turn % 4 == 0 ) //For Red Teams
         {
             for(Map.Entry<String, Piece> gridEntry : pMap.entrySet())
             {
@@ -267,7 +276,6 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 //System.out.println("Team Name :" + tempPiece.getTeam());
                 switch (tempPiece.getName())
                 {
-                    //Dis wont work
                     case 't':
                         if(Character.compare(tempPiece.getTeam(),'r') == 0)
                         {
@@ -288,7 +296,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 }
             }
         }
-        else if (turn % 4 == 1 && turn != 1)
+        else if (turn % 4 == 1 && turn != 1) //For Blue Teams
         {
             for(Map.Entry<String, Piece> gridEntry : pMap.entrySet())
             {
@@ -296,7 +304,6 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 //System.out.println("Team Name :" + tempPiece.getTeam());
                 switch (tempPiece.getName())
                 {
-                    //Dis wont work
                     case 't':
                         if(Character.compare(tempPiece.getTeam(),'b') == 0)
                         {
@@ -323,6 +330,61 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             //return false;
     }
 
+    public boolean checkObstaclesPlus(int xDes, int yDes, int xSour, int ySour)
+    {
+        int tempCoordX, tempCoordY;
+        for(Map.Entry<String, Piece> gridEntry : pMap.entrySet())
+        {
+            String tempCoord = gridEntry.getKey();
+            tempCoordX = Integer.parseInt(String.valueOf(tempCoord.charAt(0)));
+            tempCoordY = Integer.parseInt(String.valueOf(tempCoord.charAt(1)));
+
+            if (yDes == ySour && yDes == tempCoordY && (xDes < xSour)) //Moving Vertically at X Axis in a decreasing movement, i.e (from X7 -> X5)
+            {
+                
+                for (int i = (xDes + 1); i < xSour; i++)
+                {
+                    System.out.println("It manages to go in");
+                    StringBuilder sb = new StringBuilder(); // i use to append i j so i can make it as key
+                    sb.append(yDes);
+                    sb.append(i);
+                    String coord = sb.toString(); // yDes + j in string
+                    Piece tempPiece = pMap.get(coord);
+                    System.out.println(tempPiece.getName() + " " + coord);
+
+                    if (Character.compare(tempPiece.getName(),'\0') != 0) 
+                    {
+                        System.out.println("Theres an obstacle in the way");
+                        return false;
+                    }
+                }
+            }
+            else if (yDes == ySour && yDes == tempCoordY && (xDes > xSour)) //Moving Vertically at X Axis in a increasing movement, i.e (from X5 -> X7)
+            {
+                for (int i = (xDes - 1); i >= xSour; i--)
+                {
+                    System.out.println("It manages to go in");
+                    StringBuilder sb = new StringBuilder(); // to combine two ints as a key
+                    sb.append(yDes);
+                    sb.append(i);
+                    String coord = sb.toString(); // yDes + j in string
+                    Piece tempPiece = pMap.get(coord);
+                    System.out.println(tempPiece.getName() + " " + coord);
+
+                    if (Character.compare(tempPiece.getName(),'\0') != 0) 
+                    {
+                        System.out.println("Theres an obstacle in the way");
+                        return false;
+                    }
+                }
+            }
+            else
+            {
+                System.out.println("This logic is not implemented yet");
+            }
+        }
+        return true;
+    }
 }
 
 class MenuHandler extends ButtonHandler
