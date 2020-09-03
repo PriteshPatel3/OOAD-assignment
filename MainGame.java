@@ -17,6 +17,7 @@ import javafx.event.EventHandler;
 public class MainGame extends Application
 {
     GridPane chessBoard = new GridPane();
+    static Stage myStage
     static LinkedHashMap<String, Piece> pMap = new LinkedHashMap<String, Piece>(57,0.75f,false); //size, load order, how to insert, false = insertion order
     static Stack<String> cordStack = new Stack<String>();
 
@@ -38,7 +39,13 @@ public class MainGame extends Application
                 chessBoard.setBoard(pMap.get(coord).getButton(),i,j); // set the piece in the chessboard
             }
         }
+        
         //System.out.println(pMap);
-    } 
+    }
+    
+    public static Stage getStage(Stage primaryStage)
+    {
+        return primaryStage;
+    }
 }
 
