@@ -109,7 +109,15 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             switch(name)
             {
                 case 'p':
-                    return movePlus(xDes,yDes,xSour,ySour);
+                    if(checkObstaclesPlus(xDes,yDes,xSour,ySour)) //Check for any obstacles
+                    {
+                        return movePlus(xDes,yDes,xSour,ySour);
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                    //return movePlus(xDes,yDes,xSour,ySour);
                     //break;
                 case 't':
                     return moveTri(xDes,yDes,xSour,ySour);
@@ -327,6 +335,105 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             }
         }
             //return false;
+    }
+
+    public boolean checkObstaclesPlus(int xDes, int yDes, int xSour, int ySour)
+    {
+        int tempCoordX, tempCoordY;
+        StringBuilder sb = new StringBuilder();
+        if (yDes == ySour && (xDes < xSour)) //Moving Vertically at X Axis in a decreasing movement, i.e (from X7 -> X5)
+        {
+            for (int i = xDes; i < xSour; i++)
+            {
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(i);
+                sb.append(yDes);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) 
+                {
+                    System.out.println("There's an obstacle in the way of X1");
+                    return false;
+                }
+            }
+        }
+        else if (yDes == ySour && (xDes > xSour))
+        {
+            for (int i = xDes; i > xSour; i--) //Move Vertical at X Axis in increasing direction
+            {
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(i);
+                sb.append(yDes);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) 
+                {
+                    System.out.println("There's an obstacle in the way of X2");
+                    return false;
+                }
+            }
+        }
+        else if (xDes == xSour && (yDes < ySour))
+        {
+            for (int i = yDes; i < ySour; i++) //Move Vertical at X Axis in increasing direction
+            {
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(xDes);
+                sb.append(i);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) 
+                {
+                    System.out.println("There's an obstacle in the way of Y1");
+                    return false;
+                }
+            }
+        }
+        else if (xDes == xSour && (yDes > ySour))
+        {
+            for (int i = yDes; i > ySour; i--) //Move Vertical at X Axis in increasing direction
+            {
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(xDes);
+                sb.append(i);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) 
+                {
+                    System.out.println("There's an obstacle in the way of Y2");
+                    return false;
+                }
+            }
+        }
+        else
+        {
+            System.out.println("Logic Failed, you smol pp");
+        }
+        return true;
     }
 
 }
