@@ -55,7 +55,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         //sets destination icon
         pMap.get(destinationCord).getButton().setGraphic(pMap.get(sourceCord).getButton().getGraphic());
         pMap.get(destinationCord).setName(sourceName);
-        pMap.get(destinationCord).setTeam(sourceTeam);;
+        pMap.get(destinationCord).setTeam(sourceTeam);
 
         //sets source button as clear
         pMap.get(sourceCord).getButton().setGraphic(new ImageView("ChessPiece/empty.png"));

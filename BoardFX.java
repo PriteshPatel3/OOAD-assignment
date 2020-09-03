@@ -86,4 +86,3 @@ public final class BoardFX
         board.add(node,col,row);
     }
 }
-
