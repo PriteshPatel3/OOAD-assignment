@@ -341,9 +341,9 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
     {
         int tempCoordX, tempCoordY;
         StringBuilder sb = new StringBuilder();
-        if (yDes == ySour && (xDes < xSour)) //Moving Vertically at X Axis in a decreasing movement, i.e (from X7 -> X5)
-        {
-            for (int i = xDes; i < xSour; i++)
+        if (yDes == ySour && (xDes < xSour)) //Moving Vertically at Y Axis in a decreasing movement, i.e (from X7 -> X5)
+        {   
+            for (int i = xDes + 1; i < xSour; i++)
             {
                 //Reset Size of String
                 sb.setLength(0);
@@ -356,16 +356,16 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 Piece tempPiece = pMap.get(coord);
                 System.out.println(i);
                 //System.out.println(tempPiece.getName() + " " + coord);
-                if (Character.compare(tempPiece.getName(),'\0') != 0) 
+                if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
                 {
                     System.out.println("There's an obstacle in the way of X1");
                     return false;
                 }
             }
         }
-        else if (yDes == ySour && (xDes > xSour))
+        else if (yDes == ySour && (xDes > xSour)) //Move Vertical atbY Axis in increasing direction
         {
-            for (int i = xDes; i > xSour; i--) //Move Vertical at X Axis in increasing direction
+            for (int i = xDes - 1; i > xSour; i--) 
             {
                 //Reset Size of String
                 sb.setLength(0);
@@ -385,9 +385,9 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 }
             }
         }
-        else if (xDes == xSour && (yDes < ySour))
+        else if (xDes == xSour && (yDes < ySour)) //Move Vertical at X Axis in increasing direction
         {
-            for (int i = yDes; i < ySour; i++) //Move Vertical at X Axis in increasing direction
+            for (int i = yDes + 1; i < ySour; i++) 
             {
                 //Reset Size of String
                 sb.setLength(0);
@@ -407,9 +407,9 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 }
             }
         }
-        else if (xDes == xSour && (yDes > ySour))
+        else if (xDes == xSour && (yDes > ySour)) //Move Vertical at X Axis in increasing direction
         {
-            for (int i = yDes; i > ySour; i--) //Move Vertical at X Axis in increasing direction
+            for (int i = yDes - 1; i > ySour; i--) 
             {
                 //Reset Size of String
                 sb.setLength(0);
@@ -431,6 +431,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
         else
         {
+            //Reminder to change this
             System.out.println("Logic Failed, you smol pp");
         }
         return true;
