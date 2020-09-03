@@ -9,6 +9,7 @@ import javafx.scene.text.*;
 import java.util.ArrayList;
 import javafx.scene.Node;
 import java.util.*;
+import java.io.*;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,7 +18,7 @@ import javafx.event.EventHandler;
 public class MainGame extends Application
 {
     GridPane chessBoard = new GridPane();
-    static Stage myStage;
+    static Stage pStage;
     static LinkedHashMap<String, Piece> pMap = new LinkedHashMap<String, Piece>(57,0.75f,false); //size, load order, how to insert, false = insertion order
     static Stack<String> cordStack = new Stack<String>();
 
@@ -26,6 +27,9 @@ public class MainGame extends Application
     {
         BoardFX chessBoard = new BoardFX(primaryStage);
         int count = 0;
+
+        setStage(primaryStage);
+
         // Making the board
         for(int i=0;i<7;i++)
         {
@@ -40,12 +44,17 @@ public class MainGame extends Application
             }
         }
 
-        //System.out.println(pMap);
+        
     }
     
-    public static Stage getStage(Stage primaryStage)
+    private void setStage(Stage primaryStage)
     {
-        return primaryStage;
+        this.pStage = primaryStage;
+    }
+    
+    public static Stage getStage()
+    {
+        return pStage;
     }
 }
 

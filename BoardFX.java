@@ -8,6 +8,7 @@ import javafx.scene.image.*;
 import javafx.scene.text.*;
 import java.util.ArrayList;
 import javafx.scene.Node;
+import javafx.stage.*;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
