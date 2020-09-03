@@ -1,4 +1,4 @@
-Date/Time: 2020/09/03 01:23
+Date/Time: 2020/09/03 10:48
 XY: x = x Coordinate: y = y Coordinate 
 p = PLus: t = Triangle: c = Chevron: s = Sun: a = Arrow: * = Empty
  
@@ -12,13 +12,13 @@ Row: 0
 06:p:b
  
 Row: 1
-10:a:r
+10:a:b
 11:*:*
-12:a:r
+12:a:b
 13:*:*
-14:*:*
+14:a:b
 15:*:*
-16:a:r
+16:a:b
  
 Row: 2
 20:*:*
@@ -57,13 +57,13 @@ Row: 5
 56:*:*
  
 Row: 6
-60:*:*
+60:a:r
 61:*:*
-62:*:*
+62:a:r
 63:*:*
-64:a:b
+64:a:r
 65:*:*
-66:*:*
+66:a:r
  
 Row: 7
 70:p:r
