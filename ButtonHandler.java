@@ -31,14 +31,17 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             {
                 //clear stack
                 //cordStack.clear();
-                if(checkTurn(sourceCord))
-                {
+                //if(checkTurn(sourceCord))
+                //{
                     if(checkPiece(sourceCord, destinationCord) == true)
                     {
-                        move(destinationCord, sourceCord);
-                        switchPieces(sourceCord);
+                        if(checkTurn(sourceCord))
+                        {
+                            move(destinationCord, sourceCord);
+                            switchPieces(sourceCord);
+                        }
                     }
-                }
+                //}
             }
         }
 

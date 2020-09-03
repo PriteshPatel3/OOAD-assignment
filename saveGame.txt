@@ -1,4 +1,4 @@
-Date/Time: 2020/09/03 10:48
+Date/Time: 2020/09/03 10:59
 XY: x = x Coordinate: y = y Coordinate 
 p = PLus: t = Triangle: c = Chevron: s = Sun: a = Arrow: * = Empty
  
