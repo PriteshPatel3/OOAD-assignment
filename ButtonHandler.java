@@ -40,6 +40,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                         {
                             move(destinationCord, sourceCord);
                             switchPieces(sourceCord);
+							gameOver();
                         }
                     }
                 //}
@@ -152,6 +153,29 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             return false;
         }
     }
+	
+	public void gameOver ()
+	{
+		boolean win = false;
+		int sun = 0 ;
+		char team = '\0';
+		
+		for (Map.Entry<String, Piece> gridEntry : pMap.entrySet())
+		{
+			
+			if (Character.compare(gridEntry.getValue().getName(), 's') == 0)
+			{
+				sun++;
+				team = gridEntry.getValue().getTeam();
+			}
+		}
+		if (sun ==1)
+		{
+			win = true;
+			MainGame.popUp(team);
+		} 
+		
+	}
 
     private boolean moveAr (int xDes, int yDes, int xSour, int ySour, String sourceCord, String destinationCord)
     {
