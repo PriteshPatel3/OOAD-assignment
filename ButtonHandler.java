@@ -121,8 +121,14 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                     //return movePlus(xDes,yDes,xSour,ySour);
                     //break;
                 case 't':
-                    return moveTri(xDes,yDes,xSour,ySour);
-                    //break;
+                    if (checkObstaclesTri(xDes,yDes,xSour,ySour))
+                    {
+                        return moveTri(xDes,yDes,xSour,ySour);
+                    }
+                    else
+                    {
+                        return false;
+                    }//break;
                 case 'c':
                     return moveChev(xDes,yDes,xSour,ySour);
                     //return true;
@@ -475,6 +481,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
         else if (yDes == ySour && (xDes > xSour)) //Move Vertical atbY Axis in increasing direction
         {
+
             for (int i = xDes - 1; i > xSour; i--) 
             {
                 //Reset Size of String
@@ -499,6 +506,40 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             System.out.println("Ummm can you check again what you did?");
         }
 
+        return true;
+    }
+
+    public boolean checkObstaclesTri(int xDes, int yDes, int xSour, int ySour)
+    {
+        StringBuilder sb = new StringBuilder();
+        if((xDes > xSour) && (yDes > ySour) && ((xDes - xSour) == (yDes - ySour)))
+        {
+            System.out.println("one");
+            for (int j = yDes - 1; j > ySour; j--)
+            {
+                System.out.println("two");
+                for (int i = xDes - 1; i > xSour; i--) {
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(i);
+                sb.append(yDes);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                System.out.println("three");
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) 
+                {
+                    System.out.println("There's an obstacle in the way of X2");
+                    return false;
+                }
+                }
+            }
+        }
+        System.out.println("four");
         return true;
     }
 
