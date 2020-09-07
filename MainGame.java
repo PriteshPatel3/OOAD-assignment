@@ -46,7 +46,6 @@ public class MainGame extends Application
 
         
     }
-    
     private void setStage(Stage primaryStage)
     {
         this.pStage = primaryStage;
@@ -56,5 +55,12 @@ public class MainGame extends Application
     {
         return pStage;
     }
+	public static void popUp(char team)
+	{
+		Stage stage = new Stage();
+		stage.setTitle("Team " + team + " won!");
+		stage.setScene(new Scene(new Button("Team " + team + "won!"),200, 150));
+		stage.show();
+	}
 }
 
