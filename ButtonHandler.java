@@ -399,7 +399,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 }
             }
         }
-        else if (xDes == xSour && (yDes < ySour)) //Move Vertical at X Axis in increasing direction
+        else if (xDes == xSour && (yDes < ySour)) //Move Vertical at X Axis in decreasing direction
         {
             for (int i = yDes + 1; i < ySour; i++) 
             {
@@ -512,34 +512,33 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
     public boolean checkObstaclesTri(int xDes, int yDes, int xSour, int ySour)
     {
         StringBuilder sb = new StringBuilder();
-        if((xDes > xSour) && (yDes > ySour) && ((xDes - xSour) == (yDes - ySour)))
-        {
-            System.out.println("one");
-            for (int j = yDes - 1; j > ySour; j--)
+        if((yDes > ySour) && (xDes > xSour) && ((yDes - ySour) == (xDes - xSour))){
+            for (int i = yDes - 1 , j = xDes - 1 ;(i > ySour) && (j > xSour); i--, j--)
             {
-                System.out.println("two");
-                for (int i = xDes - 1; i > xSour; i--) {
                 //Reset Size of String
                 sb.setLength(0);
                 sb.trimToSize();
 
+                sb.append(xDes);
                 sb.append(i);
+                sb.append(j);
                 sb.append(yDes);
                 
                 String coord = sb.toString(); // i(x coordinate) + yDes in string
                 Piece tempPiece = pMap.get(coord);
                 System.out.println(i);
-                System.out.println("three");
                 //System.out.println(tempPiece.getName() + " " + coord);
-                if (Character.compare(tempPiece.getName(),'\0') != 0) 
+                if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
                 {
-                    System.out.println("There's an obstacle in the way of X2");
+                    System.out.println("There's an obstacle in the way of X1");
                     return false;
-                }
                 }
             }
         }
-        System.out.println("four");
+        else
+        {
+            System.out.println("umm something wrong I guess?");
+        }
         return true;
     }
 
