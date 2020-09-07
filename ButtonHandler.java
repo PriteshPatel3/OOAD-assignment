@@ -121,8 +121,14 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                     //return movePlus(xDes,yDes,xSour,ySour);
                     //break;
                 case 't':
-                    return moveTri(xDes,yDes,xSour,ySour);
-                    //break;
+                    if (checkObstaclesTri(xDes,yDes,xSour,ySour))
+                    {
+                        return moveTri(xDes,yDes,xSour,ySour);
+                    }
+                    else
+                    {
+                        return false;
+                    }//break;
                 case 'c':
                     return moveChev(xDes,yDes,xSour,ySour);
                     //return true;
@@ -393,7 +399,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 }
             }
         }
-        else if (xDes == xSour && (yDes < ySour)) //Move Vertical at X Axis in increasing direction
+        else if (xDes == xSour && (yDes < ySour)) //Move Vertical at X Axis in decreasing direction
         {
             for (int i = yDes + 1; i < ySour; i++) 
             {
@@ -475,6 +481,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
         else if (yDes == ySour && (xDes > xSour)) //Move Vertical atbY Axis in increasing direction
         {
+
             for (int i = xDes - 1; i > xSour; i--) 
             {
                 //Reset Size of String
@@ -496,9 +503,105 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             }
         }
         else{
-            System.out.println("Ummm can you check again what you did?");
+            System.out.println("Ummm please move according to the logic arrow");
         }
 
+        return true;
+    }
+
+    public boolean checkObstaclesTri(int xDes, int yDes, int xSour, int ySour)
+    {
+        StringBuilder sb = new StringBuilder();
+        if((yDes > ySour) && (xDes > xSour)){ //135 degree for blue, 315 for red (but logically is 45 for both)
+            for (int i = yDes - 1 , j = xDes - 1 ;(i > ySour) && (j > xSour); i--, j--)
+            {
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(j);
+                sb.append(i);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
+                {
+                    System.out.println("There's an obstacle in the way of X1");
+                    return false;
+                }
+            }
+        }
+        else if((yDes > ySour) && (xDes < xSour)){ //225 degree for blue, 45 for red (but logically is 135 for both) 
+            for (int i = yDes - 1 , j = xDes + 1 ;(i > ySour) && (j < xSour); i--, j++)
+            {
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(j);
+                sb.append(i);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
+                {
+                    System.out.println("There's an obstacle in the way of X1(2)");
+                    return false;
+                }
+            }
+        }
+        else if((yDes < ySour) && (xDes < xSour)){//315 for blue, 135 for red(but logically is 225 for both) 
+            for (int i = yDes + 1 , j = xDes + 1 ;(i < ySour) && (j < xSour); i++, j++)
+            {
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(j);
+                sb.append(i);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
+                {
+                    System.out.println("There's an obstacle in the way of X1(3)");
+                    return false;
+                }
+            }
+        
+        }
+        else if((yDes < ySour) && (xDes > xSour)){//45 for blue, 225 for red(but logically is 315 for both)
+            for (int i = yDes + 1 , j = xDes - 1 ;(i < ySour) && (j > xSour); i++, j--)
+            {
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(j);
+                sb.append(i);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
+                {
+                    System.out.println("There's an obstacle in the way of X1(4)");
+                    return false;
+                }
+            }
+        
+        }
+        else
+        {
+            System.out.println("umm please move according to the logic tri");
+        }
         return true;
     }
 
