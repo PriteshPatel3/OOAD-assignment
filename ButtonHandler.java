@@ -503,7 +503,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             }
         }
         else{
-            System.out.println("Ummm can you check again what you did?");
+            System.out.println("Ummm please move according to the logic arrow");
         }
 
         return true;
@@ -512,17 +512,15 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
     public boolean checkObstaclesTri(int xDes, int yDes, int xSour, int ySour)
     {
         StringBuilder sb = new StringBuilder();
-        if((yDes > ySour) && (xDes > xSour) && ((yDes - ySour) == (xDes - xSour))){
+        if((yDes > ySour) && (xDes > xSour)){ //135 degree for blue, 315 for red (but logically is 45 for both)
             for (int i = yDes - 1 , j = xDes - 1 ;(i > ySour) && (j > xSour); i--, j--)
             {
                 //Reset Size of String
                 sb.setLength(0);
                 sb.trimToSize();
 
-                sb.append(xDes);
-                sb.append(i);
                 sb.append(j);
-                sb.append(yDes);
+                sb.append(i);
                 
                 String coord = sb.toString(); // i(x coordinate) + yDes in string
                 Piece tempPiece = pMap.get(coord);
@@ -535,9 +533,74 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 }
             }
         }
+        else if((yDes > ySour) && (xDes < xSour)){ //225 degree for blue, 45 for red (but logically is 135 for both) 
+            for (int i = yDes - 1 , j = xDes + 1 ;(i > ySour) && (j < xSour); i--, j++)
+            {
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(j);
+                sb.append(i);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
+                {
+                    System.out.println("There's an obstacle in the way of X1(2)");
+                    return false;
+                }
+            }
+        }
+        else if((yDes < ySour) && (xDes < xSour)){//315 for blue, 135 for red(but logically is 225 for both) 
+            for (int i = yDes + 1 , j = xDes + 1 ;(i < ySour) && (j < xSour); i++, j++)
+            {
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(j);
+                sb.append(i);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
+                {
+                    System.out.println("There's an obstacle in the way of X1(3)");
+                    return false;
+                }
+            }
+        
+        }
+        else if((yDes < ySour) && (xDes > xSour)){//45 for blue, 225 for red(but logically is 315 for both)
+            for (int i = yDes + 1 , j = xDes - 1 ;(i < ySour) && (j > xSour); i++, j--)
+            {
+                //Reset Size of String
+                sb.setLength(0);
+                sb.trimToSize();
+
+                sb.append(j);
+                sb.append(i);
+                
+                String coord = sb.toString(); // i(x coordinate) + yDes in string
+                Piece tempPiece = pMap.get(coord);
+                System.out.println(i);
+                //System.out.println(tempPiece.getName() + " " + coord);
+                if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
+                {
+                    System.out.println("There's an obstacle in the way of X1(4)");
+                    return false;
+                }
+            }
+        
+        }
         else
         {
-            System.out.println("umm something wrong I guess?");
+            System.out.println("umm please move according to the logic tri");
         }
         return true;
     }
