@@ -13,7 +13,9 @@ import java.io.*;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-
+import javafx.scene.control.Alert.AlertType; 
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.application.Platform;
 
 public class MainGame extends Application
 {
@@ -64,6 +66,27 @@ public class MainGame extends Application
 		stage.setTitle("Congratulations");
 		stage.setScene(new Scene(resetButton,200,150));
 		stage.show();
+		
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Congratulations");
+        alert.setHeaderText("Congratulations Team " + team + " won!");
+        alert.setContentText("Play again?");
+
+        ButtonType buttonTypeOne = new ButtonType("Restart");
+        ButtonType buttonTypeTwo = new ButtonType("Exit");
+        ButtonType buttonTypeCancel = new ButtonType("Cancel");
+
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == buttonTypeOne){
+            System.out.println( "Restarting app!" );
+            getStage().close();
+            Platform.runLater( () -> new MainGame().start( new Stage() ) );
+        } else if (result.get() == buttonTypeTwo) {
+            Platform.exit();
+        } else {
+        }
 	}
 }
 
