@@ -9,60 +9,56 @@ import java.time.format.*;
 import javafx.stage.*;
 import javafx.application.Platform;
 
-
-public class ButtonHandler extends MainGame implements EventHandler<ActionEvent> 
+/* Controller part of MVC */
+public class ButtonHandler extends MainGame implements EventHandler<ActionEvent> //Pritesh Najmi Fong Darren Aisyah
 {
     @Override
-    public void handle(ActionEvent e)
+    public void handle(ActionEvent e) //Pritesh Najmi//functions to handle what happen when a certain button is clicked
     {
-        StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder(); //used to concatinate integer x and y to a string so it can used as a key to access the linkedhashmap
         int x = BoardFX.getX(e.getSource());
         int y = BoardFX.getY(e.getSource());
         sb.append(x);
         sb.append(y);
-        String currentCord = sb.toString();
+        String currentCord = sb.toString(); //push a string of coordinate of the click into a stack 
 
-        if(cordStack.isEmpty())
+        if(cordStack.isEmpty()) //if stack empty it checks if the first click is on an empty piece or not
         {
             //if user clicks on empty space
             if (Character.compare(pMap.get(sb.toString()).getName(), '\0') == 0)
             {
-                BoardFX.changeText("No piece selected");
+                BoardFX.changeText("No piece selected"); //shows you a message if you select a button with no piece
             }
 
-            else
+            else //if the first click is not empty then add the click coordinate to stack 
             {
                 cordStack.push(currentCord);
                 BoardFX.changeText(pMap.get(currentCord).getFullTeam() + " " + pMap.get(currentCord).getFullName() + " selected");
             }
         }
 
-        else
+        else //if stack is not empty it will push the destination click coordinate to the stack
         {
             cordStack.push(currentCord);
         }
 
 
 
-        if (cordStack.size() == 2)
+        if (cordStack.size() == 2) // stack has 2 element destination coordinate and source coordinate
         {
             
             //get destination and source coordinates
-            String destinationCord = cordStack.pop();
+            String destinationCord = cordStack.pop(); //getting destination and source coordinates
             String sourceCord = cordStack.pop();
 
             //checks to see that the user does not press the same button and the source isnt an empty button
             if( !(destinationCord.equals(sourceCord)) && (Character.compare(pMap.get(sourceCord).getName() ,'\0') != 0) )
             {
-                //clear stack
-                //cordStack.clear();
-                //if(checkTurn(sourceCord))
-                //{
-                    if(checkPiece(sourceCord, destinationCord) == true)
+                    if(checkPiece(sourceCord, destinationCord) == true) //movement logic checker for the piece selected
                     {
-                        if(checkTurn(sourceCord))
+                        if(checkTurn(sourceCord)) // check if the selected piece is correct team on the correct turn or not
                         {
-                            //prints out move message
+                            //prints out move message, to show user it moved successfully 
                             BoardFX.changeText(pMap.get(sourceCord).getFullTeam() + " " + pMap.get(sourceCord).getFullName() + " Moved Succesfully ");
                             move(destinationCord, sourceCord);
                             switchPieces(sourceCord);
@@ -71,93 +67,90 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
 
                         else
                         {
-                            BoardFX.changeText("Wrong team chosen");
+                            BoardFX.changeText("Wrong team chosen"); //show user an error message at the bottom of the screen if wrong team chosen
                         }
 
                     }
 
                     else
                     {
-                        BoardFX.changeText("Piece cannot be moved there");
+                        BoardFX.changeText("Piece cannot be moved there"); //show user an error message at the bottom of the screen if wrong movement logic
                     }
-                //}
+                
             }
         }
 
-        System.out.println("X: " + x + " Y: "+ y);
+        System.out.println("X: " + x + " Y: "+ y); //print to command line for debugging check
         System.out.println("Name:" + pMap.get(sb.toString()).getName());
         System.out.println(cordStack.size());
     }
 
-    private void move (String destinationCord, String sourceCord)
+    private void move (String destinationCord, String sourceCord) //Najmi//general movement logic 
     {
         //get team name and piece name
-        char sourceName = pMap.get(sourceCord).getName();
+        char sourceName = pMap.get(sourceCord).getName(); // gets name and team of the source coordinate/piece
         char sourceTeam = pMap.get(sourceCord).getTeam();
 
-        //ImageView icon = nameToImage(sourceName,sourceTeam);
-
-        //sets destination icon
+        //sets destination icon to the same icon as the source
         pMap.get(destinationCord).getButton().setGraphic(pMap.get(sourceCord).getButton().getGraphic());
-        pMap.get(destinationCord).setName(sourceName);
-        pMap.get(destinationCord).setTeam(sourceTeam);
+        pMap.get(destinationCord).setName(sourceName); //change destination name to source name
+        pMap.get(destinationCord).setTeam(sourceTeam); //change destination team to source team
 
-        //sets source button as clear
+        //sets source button as empty space
         pMap.get(sourceCord).getButton().setGraphic(new ImageView("ChessPiece/empty.png"));
         pMap.get(sourceCord).setName('\0');
         pMap.get(sourceCord).setTeam('\0');
     }
 
-    private boolean checkTurn(String sourceCord)
+    private boolean checkTurn(String sourceCord) //Pritesh//logic to check whose turn its suppose to be
     {
-        int turn = pMap.get(sourceCord).getTurn();
-        if (turn % 2 == 0)
+        int turn = pMap.get(sourceCord).getTurn(); //gets turn from piece obj
+        if (turn % 2 == 0) //if turn is in the multiple of 2 (0,2,4,6,8,....) its red team
         {
             if (Character.compare(pMap.get(sourceCord).getTeam(),'r') == 0)
             {   
-                pMap.get(sourceCord).increaseTurn();
-                BoardFX.getBoard().setRotate(180);
+                pMap.get(sourceCord).increaseTurn(); //increase turn
+                BoardFX.getBoard().setRotate(180); //rotate board after the turn over
                 return true;
             }
             else
                 return false;
         }
-        else
+        else //if turn is odd number then blue team turn
         {
             if (Character.compare(pMap.get(sourceCord).getTeam(),'b') == 0)
             {
                 pMap.get(sourceCord).increaseTurn();
-                BoardFX.getBoard().setRotate(0);
+                BoardFX.getBoard().setRotate(0); //roates board back to 0 after blue move
                 return true;
             }
             else
-                return false;
+                return false; // return false meaning wrong team chosen cannot move
         }
     }
 
-    private boolean checkPiece(String sourceCord, String destinationCord)
+    private boolean checkPiece(String sourceCord, String destinationCord) //Pritesh//tell pieces how to move based on the name of piece
     {
         //seperate string to int x y
-        int xDes = Integer.parseInt(String.valueOf(destinationCord.charAt(0)));
+        int xDes = Integer.parseInt(String.valueOf(destinationCord.charAt(0))); //seperate coord to x y 
         int yDes = Integer.parseInt(String.valueOf(destinationCord.charAt(1)));
         int xSour = Integer.parseInt(String.valueOf(sourceCord.charAt(0)));
         int ySour = Integer.parseInt(String.valueOf(sourceCord.charAt(1)));
         char name = pMap.get(sourceCord).getName();
-        if(Character.compare(pMap.get(sourceCord).getTeam(),pMap.get(destinationCord).getTeam()) != 0)
+        if(Character.compare(pMap.get(sourceCord).getTeam(),pMap.get(destinationCord).getTeam()) != 0) //if team not same then can eat
         {  
             switch(name)
             {
                 case 'p':
                     if(checkObstaclesPlus(xDes,yDes,xSour,ySour)) //Check for any obstacles
                     {
-                        return movePlus(xDes,yDes,xSour,ySour);
+                        return movePlus(xDes,yDes,xSour,ySour); //call movement logic function
                     }
                     else
                     {
-                        return false;
+                        return false; //return false means logic is wrong cannot move
                     }
-                    //return movePlus(xDes,yDes,xSour,ySour);
-                    //break;
+                    
                 case 't':
                     if (checkObstaclesTri(xDes,yDes,xSour,ySour))
                     {
@@ -166,15 +159,11 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                     else
                     {
                         return false;
-                    }//break;
+                    }
                 case 'c':
                     return moveChev(xDes,yDes,xSour,ySour);
-                    //return true;
-                    //break;
                 case 's':
                     return moveSun(xDes,yDes,xSour,ySour);
-                    //return true;
-                    //break;
                 case 'a':
                     if(checkObstaclesAr(xDes,yDes,xSour,ySour))
                     {
@@ -184,11 +173,8 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                     {
                         return false;
                     } 
-                    //return true;
-                    //break;
                 default:
                     return false;
-                    //break;
             }
         }
         else
@@ -197,48 +183,48 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
     }
 	
-	public void gameOver ()
+	public void gameOver () //Aisyah//checks if game over
 	{
 		boolean win = false;
 		int sun = 0 ;
 		String team = "\0";
 		
-		for (Map.Entry<String, Piece> gridEntry : pMap.entrySet())
+		for (Map.Entry<String, Piece> gridEntry : pMap.entrySet()) //loops the map and count number of sun
 		{
 			
-			if (Character.compare(gridEntry.getValue().getName(), 's') == 0)
+			if (Character.compare(gridEntry.getValue().getName(), 's') == 0) //if found a sun piece count ++
 			{
 				sun++;
 				team = gridEntry.getValue().getFullTeam();
 			}
 		}
-		if (sun ==1)
+		if (sun ==1) //after looping only 1 sun found meaning that sun team won
 		{
 			win = true;
-			MainGame.popUp(team);
+			MainGame.popUp(team); //displays a popup window
 		} 
 		
 	}
 
-    private boolean moveAr (int xDes, int yDes, int xSour, int ySour, String sourceCord, String destinationCord)
+    private boolean moveAr (int xDes, int yDes, int xSour, int ySour, String sourceCord, String destinationCord) //Pritesh//arrow movement logic calculation
     {
 
-        if (Character.compare(pMap.get(sourceCord).getTeam(),'b') == 0)
+        if (Character.compare(pMap.get(sourceCord).getTeam(),'b') == 0) //if chosen piece is blue
         {
-            if ((Math.abs(ySour - yDes) == 0))
+            if ((Math.abs(ySour - yDes) == 0)) //checks if its moving vertically
             {
-                if (((xSour - xDes) == -1 || (xSour - xDes) == -2) && pMap.get(sourceCord).getButton().getGraphic().getRotate() == 0)
+                if (((xSour - xDes) == -1 || (xSour - xDes) == -2) && pMap.get(sourceCord).getButton().getGraphic().getRotate() == 0) //makes sures that can only move down
                 {
-                    if(xDes == 7 || xDes == 0)
+                    if(xDes == 7 || xDes == 0) //if reach the edge then rotate the piece
                         {
                             if(pMap.get(sourceCord).getButton().getGraphic().getRotate() == 0)
                                 pMap.get(sourceCord).getButton().getGraphic().setRotate(180); 
                         }
-                    return true;
+                    return true; //true meaning movement logic correct can move
                 }
-                else if (((xSour - xDes) == 1 || (xSour - xDes) == 2) && pMap.get(sourceCord).getButton().getGraphic().getRotate() == 180)
+                else if (((xSour - xDes) == 1 || (xSour - xDes) == 2) && pMap.get(sourceCord).getButton().getGraphic().getRotate() == 180) //if the piece already rotate then it can only move up
                 {
-                    if(xDes == 7 || xDes == 0)
+                    if(xDes == 7 || xDes == 0) //if it reach the edge rotate
                         {
                             if(pMap.get(sourceCord).getButton().getGraphic().getRotate() == 180)
                                 pMap.get(sourceCord).getButton().getGraphic().setRotate(0); 
@@ -254,11 +240,11 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             }
         }
 
-        else if (Character.compare(pMap.get(sourceCord).getTeam(),'r') == 0)
+        else if (Character.compare(pMap.get(sourceCord).getTeam(),'r') == 0) //same logic as blue but this is for red
         {
             if ((Math.abs(ySour - yDes) == 0))
             {
-                if (((xSour - xDes) == 1 || (xSour - xDes) == 2) && pMap.get(sourceCord).getButton().getGraphic().getRotate() == 0)
+                if (((xSour - xDes) == 1 || (xSour - xDes) == 2) && pMap.get(sourceCord).getButton().getGraphic().getRotate() == 0) //makes sure at first can only move up
                 {
                     if(xDes == 7 || xDes == 0)
                     {
@@ -267,7 +253,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                     }
                     return true;
                 }
-                else if (((xSour - xDes) == -1 || (xSour - xDes) == -2) && pMap.get(sourceCord).getButton().getGraphic().getRotate() == 180)
+                else if (((xSour - xDes) == -1 || (xSour - xDes) == -2) && pMap.get(sourceCord).getButton().getGraphic().getRotate() == 180) //after rotate makesure can only move down
                 {
                     if(xDes == 7 || xDes == 0)
                     {
@@ -290,9 +276,9 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             return false;
     }
 
-    private boolean moveSun (int xDes, int yDes, int xSour, int ySour)
+    private boolean moveSun (int xDes, int yDes, int xSour, int ySour) //Fong//sun movement logic
     {
-        if ((Math.abs(yDes-ySour) <= 1) && (Math.abs(xDes-xSour) <= 1))
+        if ((Math.abs(yDes-ySour) <= 1) && (Math.abs(xDes-xSour) <= 1)) //ensure sun can only move 1 unit in all directions
         {
             return true;
         }
@@ -302,8 +288,8 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
     }
 
-    private boolean movePlus (int xDes, int yDes, int xSour, int ySour)
-    {
+    private boolean movePlus (int xDes, int yDes, int xSour, int ySour) //Darren//move logic for plus
+    {   //move logic ensure plus can only move any number step either vertically or horizontally 
         if ((((Math.abs(yDes-ySour) != 0) && (Math.abs(xDes-xSour) == 0)) || ((Math.abs(yDes-ySour) == 0)) && (Math.abs(xDes-xSour) != 0)))
         {
             return true;
@@ -314,13 +300,13 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
     }
 
-    private boolean moveChev(int x1, int y1, int x2, int y2)
+    private boolean moveChev(int x1, int y1, int x2, int y2) //Najmi//chevron movement logic
     {
         int diffX = Math.abs(x2-x1);
         int diffY = Math.abs(y2-y1);
 
         
-        if (((diffX == 1) && (diffY == 2)) || ((diffX == 2)&&(diffY == 1)))
+        if (((diffX == 1) && (diffY == 2)) || ((diffX == 2)&&(diffY == 1))) //logic tto move in a L shape in any direction 
         {
             return true;
         }
@@ -331,8 +317,8 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
     }
     
-    public boolean moveTri (int xDes, int yDes, int xSour, int ySour)
-    {
+    public boolean moveTri (int xDes, int yDes, int xSour, int ySour) //Darren//triangle movement logic
+    {   //ensure triangle can move diagonally 
         if ((Math.abs(yDes-ySour) == Math.abs(xDes-xSour)) && (Math.abs(yDes-ySour) != 0) && (Math.abs(xDes-xSour) != 0))
         {
             return true;
@@ -343,21 +329,17 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
     }
 
-    public void switchPieces(String sourceCord)
+    public void switchPieces(String sourceCord) //Pritesh Darren//logic to switch plusses and traingles
     {
         int turn = pMap.get(sourceCord).getTurn();
-        //int turn = pMap.get(sourceCord).getTurn();
-        //System.out.println("Current Team :" + team);
-        if (turn % 4 == 0 )
+        if (turn % 4 == 0 ) //if turn is divisible by 4 (4,8,12,16,20,...) then switch occurs, this logic is for red
         {
-            for(Map.Entry<String, Piece> gridEntry : pMap.entrySet())
+            for(Map.Entry<String, Piece> gridEntry : pMap.entrySet()) //loops the map find the triangle and plus
             {
-                Piece tempPiece = gridEntry.getValue();
-                //System.out.println("Team Name :" + tempPiece.getTeam());
-                switch (tempPiece.getName())
+                Piece tempPiece = gridEntry.getValue(); //get the Piece obj
+                switch (tempPiece.getName()) //switches based on name
                 {
-                    //Dis wont work
-                    case 't':
+                    case 't': //if triangle then switch to plus and vise versa
                         if(Character.compare(tempPiece.getTeam(),'r') == 0)
                         {
                             tempPiece.getButton().setGraphic(new ImageView("ChessPiece/addR.png"));
@@ -373,26 +355,22 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                         break;
                     default:
                         break;
-                        //return false;
                 }
             }
         }
-        else if (turn % 4 == 1 && turn != 1)
-        {
+        else if (turn % 4 == 1 && turn != 1) // turn is at (5,9,13,17,21,....) number dividied by 4 which has remainder of 1 
+        {                                    // then switch occurs for blue team
             for(Map.Entry<String, Piece> gridEntry : pMap.entrySet())
             {
                 Piece tempPiece = gridEntry.getValue();
-                //System.out.println("Team Name :" + tempPiece.getTeam());
                 switch (tempPiece.getName())
                 {
-                    //Dis wont work
                     case 't':
                         if(Character.compare(tempPiece.getTeam(),'b') == 0)
                         {
                             tempPiece.getButton().setGraphic(new ImageView("ChessPiece/addB.png"));
                             tempPiece.setName('p');   
-                        } 
-                            //return true;            
+                        }          
                         break;
                     case 'p':
                         if(Character.compare(tempPiece.getTeam(),'b') == 0)
@@ -400,19 +378,15 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                             tempPiece.getButton().setGraphic(new ImageView("ChessPiece/triangleB.png"));
                             tempPiece.setName('t');
                         }
-                        //return true;
-                        //System.out.println("Red Plus Changed");
                         break;
                     default:
                         break;
-                        //return false;
                 }
             }
         }
-            //return false;
     }
 
-    public boolean checkObstaclesPlus(int xDes, int yDes, int xSour, int ySour)
+    public boolean checkObstaclesPlus(int xDes, int yDes, int xSour, int ySour) //Darren
     {
         int tempCoordX, tempCoordY;
         StringBuilder sb = new StringBuilder();
@@ -430,7 +404,6 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 String coord = sb.toString(); // i(x coordinate) + yDes in string
                 Piece tempPiece = pMap.get(coord);
                 System.out.println(i);
-                //System.out.println(tempPiece.getName() + " " + coord);
                 if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
                 {
                     System.out.println("There's an obstacle in the way of X1");
@@ -452,7 +425,6 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 String coord = sb.toString(); // i(x coordinate) + yDes in string
                 Piece tempPiece = pMap.get(coord);
                 System.out.println(i);
-                //System.out.println(tempPiece.getName() + " " + coord);
                 if (Character.compare(tempPiece.getName(),'\0') != 0) 
                 {
                     System.out.println("There's an obstacle in the way of X2");
@@ -474,7 +446,6 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 String coord = sb.toString(); // i(x coordinate) + yDes in string
                 Piece tempPiece = pMap.get(coord);
                 System.out.println(i);
-                //System.out.println(tempPiece.getName() + " " + coord);
                 if (Character.compare(tempPiece.getName(),'\0') != 0) 
                 {
                     System.out.println("There's an obstacle in the way of Y1");
@@ -496,7 +467,6 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 String coord = sb.toString(); // i(x coordinate) + yDes in string
                 Piece tempPiece = pMap.get(coord);
                 System.out.println(i);
-                //System.out.println(tempPiece.getName() + " " + coord);
                 if (Character.compare(tempPiece.getName(),'\0') != 0) 
                 {
                     System.out.println("There's an obstacle in the way of Y2");
@@ -506,14 +476,13 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
         else
         {
-            //Reminder to change this
             System.out.println("Illegal movement. Please move according to the Plus piece's logic");
         }
         return true;
     }
 
 
-    public boolean checkObstaclesAr(int xDes, int yDes, int xSour, int ySour)
+    public boolean checkObstaclesAr(int xDes, int yDes, int xSour, int ySour) //Fong
     {
         //int tempCoordX, tempCoordY;
         StringBuilder sb = new StringBuilder();
@@ -570,7 +539,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         return true;
     }
 
-    public boolean checkObstaclesTri(int xDes, int yDes, int xSour, int ySour)
+    public boolean checkObstaclesTri(int xDes, int yDes, int xSour, int ySour) //Fong
     {
         StringBuilder sb = new StringBuilder();
         if((yDes > ySour) && (xDes > xSour)){ //135 degree for blue, 315 for red (but logically is 45 for both)
@@ -586,7 +555,6 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 String coord = sb.toString(); // i(x coordinate) + yDes in string
                 Piece tempPiece = pMap.get(coord);
                 System.out.println(i);
-                //System.out.println(tempPiece.getName() + " " + coord);
                 if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
                 {
                     System.out.println("There's an obstacle in the way(1)");
@@ -607,7 +575,6 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 String coord = sb.toString(); // i(x coordinate) + yDes in string
                 Piece tempPiece = pMap.get(coord);
                 System.out.println(i);
-                //System.out.println(tempPiece.getName() + " " + coord);
                 if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
                 {
                     System.out.println("There's an obstacle in the way(2)");
@@ -628,7 +595,6 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 String coord = sb.toString(); // i(x coordinate) + yDes in string
                 Piece tempPiece = pMap.get(coord);
                 System.out.println(i);
-                //System.out.println(tempPiece.getName() + " " + coord);
                 if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
                 {
                     System.out.println("There's an obstacle in the way(3)");
@@ -650,7 +616,6 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 String coord = sb.toString(); // i(x coordinate) + yDes in string
                 Piece tempPiece = pMap.get(coord);
                 System.out.println(i);
-                //System.out.println(tempPiece.getName() + " " + coord);
                 if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
                 {
                     System.out.println("There's an obstacle in the way(4)");
@@ -668,22 +633,22 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
 
 }
 
-class MenuHandler extends ButtonHandler
+class MenuHandler extends ButtonHandler //Najmi//button handler but for menu items
 {
     @Override
     public void handle(ActionEvent e)
     {
         MenuItem menu = (MenuItem)e.getSource();
-        int id = Integer.parseInt(menu.getId());
+        int id = Integer.parseInt(menu.getId()); //gets id of menu clicked
         FileChooser chooser = new FileChooser();
         DirectoryChooser dChooser = new DirectoryChooser();
 
         switch(id)
         {
-            case 1:
-                try
+            case 1://Najmi//save button
+                try 
                 {
-                    File saveDirectory = dChooser.showDialog(MainGame.getStage());
+                    File saveDirectory = dChooser.showDialog(MainGame.getStage()); //opens file saving dialogue
                     String directory = saveDirectory.getAbsolutePath();
                     StringBuilder name = new StringBuilder();
 
@@ -697,7 +662,7 @@ class MenuHandler extends ButtonHandler
                     
                     name.append("\\\\Webale_save.txt");
                     
-                    saveGame(name.toString());
+                    saveGame(name.toString()); //saves location and pieces on the board
                 }
 
                 catch (IOException f)
@@ -708,11 +673,11 @@ class MenuHandler extends ButtonHandler
 
                 break;
 
-            case 2:
+            case 2://Najmi//load game
                 try
                 {
-                    File loadFile = chooser.showOpenDialog(MainGame.getStage());
-                    loadGame(loadFile);
+                    File loadFile = chooser.showOpenDialog(MainGame.getStage()); //opens saved file
+                    loadGame(loadFile); //runs a function to display the board based on saved file
                 }
 
                 catch (IOException g)
@@ -723,12 +688,11 @@ class MenuHandler extends ButtonHandler
 
                 break;
 
-            case 3:
+            case 3://Fong//restarting button
                 
-                System.out.println( "Restarting app!" );
-                MainGame.getStage().close();
-                Platform.runLater( () -> new MainGame().start( new Stage() ) );
-                //restartApplication();
+                System.out.println( "Restarting app!" ); //shows in command line for development purposes
+                MainGame.getStage().close(); // closes the game 
+                Platform.runLater( () -> new MainGame().start( new Stage()) ); //after closing the game tune a new instance of the game
                 break;
 
         }
@@ -737,7 +701,7 @@ class MenuHandler extends ButtonHandler
     }
 
     public void saveGame(String fileName) throws IOException
-    {
+    {//Najmi
         
             //create file
             File savedFile = new File(fileName);
@@ -789,7 +753,7 @@ class MenuHandler extends ButtonHandler
     }
 
     public void loadGame(File file) throws IOException
-    {
+    {//Najmi
         ArrayList<String> cordArray = new ArrayList<String>();
         ArrayList<String> nameArray = new ArrayList<String>();
         ArrayList<String> teamArray = new ArrayList<String>();
@@ -841,7 +805,7 @@ class MenuHandler extends ButtonHandler
             }
 
             ImageView icon = new ImageView();
-            icon = nameToImage(piece,team);
+            icon = nameToImage(piece,team); //function to determine what image should be on the piece
 
 
             
@@ -853,8 +817,8 @@ class MenuHandler extends ButtonHandler
   
     }
 
-    private ImageView nameToImage (char name, char team)
-    {
+    private ImageView nameToImage (char name, char team) //function to return the correct image based on the team and name
+    {//Najmi                                             // used during loading save file
         ImageView icon;
         switch(name)
         {

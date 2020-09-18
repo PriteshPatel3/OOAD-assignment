@@ -7,20 +7,22 @@ import javafx.stage.Stage;
 import javafx.scene.image.*;
 import javafx.scene.text.*;
 import javafx.scene.image.ImageView;
-
 import java.util.ArrayList;
 
 
-
-public class Piece
+/* Model part of MVC */
+/* Observer Pattern 1 Piece object is mapped to 1 button, Any changes on Piece class in observed on the button*/ 
+/*State pattern, Piece object state determines how to move the pieces
+Example if state of Piece change from plus piece to triangle piece, the piece will have behavior of a triangle */
+public class Piece //Pritesh Najmi
 {
     private int x,y;
     private char PName;
     private Button button;
     private char team;
-    private static int turn;
-    ButtonHandler btnHandler = new ButtonHandler();
-    Piece (int x,int y)
+    private static int turn; //turn to know its blue or red team turn 
+    ButtonHandler btnHandler = new ButtonHandler(); //initialization handler for buttons
+    Piece (int x,int y) // constructor for Piece class
     {
         this.x = x;
         this.y = y;     
@@ -63,41 +65,41 @@ public class Piece
         turn++;
     }
 
-    private void setUpPiece() 
+    private void setUpPiece() //Pritesh//functions to setup pieces on the board based on the x and y coordinates
     {
         if(this.y == 0)
         {
             switch(x){
                 case 0:
                 case 6:
-                    this.button = new Button(" ", new ImageView("ChessPiece/addB.png"));
+                    this.button = new Button(" ", new ImageView("ChessPiece/addB.png")); //if row 0 on col 6 and 0 piece will be blue plus
                     this.button.setOnAction(btnHandler);
                     this.PName = 'p';
                     this.team = 'b';
                     break;
                 case 1:
                 case 5:
-                    this.button = new Button(" ", new ImageView("ChessPiece/triangleB.png"));
+                    this.button = new Button(" ", new ImageView("ChessPiece/triangleB.png")); //if row 0 on col 5 and 0 piece will be blue triangle
                     this.button.setOnAction(btnHandler);
                     this.PName = 't';
                     this.team = 'b';
                     break;
                 case 2:
                 case 4:
-                    this.button = new Button(" ",  new ImageView("ChessPiece/chevronB.png"));
+                    this.button = new Button(" ",  new ImageView("ChessPiece/chevronB.png"));//if row 0 on col 4 and 0 piece will be blue Chevron
                     this.button.setOnAction(btnHandler);
                     this.PName = 'c';
                     this.team = 'b';
                     break;
                 case 3:
-                    this.button = new Button(" ", new ImageView("ChessPiece/sunB.png"));
+                    this.button = new Button(" ", new ImageView("ChessPiece/sunB.png")); //if row 0 on col 3 piece will be blue sun
                     this.button.setOnAction(btnHandler);
                     this.PName = 's';
                     this.team = 'b';
                     break;
                 default:
-                    this.button = new Button(" ", new ImageView("ChessPiece/empty.png"));
-                    this.button.setOnAction(btnHandler);
+                    this.button = new Button(" ", new ImageView("ChessPiece/empty.png")); //if coordinate were not mentioned in the switches above 
+                    this.button.setOnAction(btnHandler);                                   //the button will not have a Piece object and will be considered blank
                     
 
             } 
@@ -186,7 +188,7 @@ public class Piece
         }
     }
 
-    public String getFullName()
+    public String getFullName() //Najmi//get full name for printing purposes // To show user error more clearly
     {
         char name = this.getName();
 
@@ -219,7 +221,7 @@ public class Piece
 
     }
 
-    public String getFullTeam()
+    public String getFullTeam() //Najmi//get full team for printing purposes // To show user error more clearly
     {
         char team = this.getTeam();
         String fullTeam = "default";
@@ -238,9 +240,4 @@ public class Piece
 
     }
 
-    //@Override
-    //public String toString()
-    //{
-        //return "Chess @ X:" + x + " Y:"+ y;
-    //}
 }

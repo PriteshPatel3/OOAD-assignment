@@ -17,17 +17,17 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.application.Platform;
 
-public class MainGame extends Application
+public class MainGame extends Application //najmi and pritesh
 {
-    GridPane chessBoard = new GridPane();
-    static Stage pStage;
-    static LinkedHashMap<String, Piece> pMap = new LinkedHashMap<String, Piece>(57,0.75f,false); //size, load order, how to insert, false = insertion order
-    static Stack<String> cordStack = new Stack<String>();
+    static Stage pStage; // variable to hold primary stage (singleton DP)
+    /*Proxy pattern, this LinkedHashMap provide the mean to access the Piece on the board */
+    static LinkedHashMap<String, Piece> pMap = new LinkedHashMap<String, Piece>(57,0.75f,false);  //Map to track what Piece is on what coordinate
+    static Stack<String> cordStack = new Stack<String>(); // A stack of string used to handle movement logic
 
     @Override
     public void start(Stage primaryStage)
     {
-        BoardFX chessBoard = new BoardFX(primaryStage);
+        BoardFX chessBoard = new BoardFX(primaryStage); //initialize BoardFX object 
         int count = 0;
 
         setStage(primaryStage);
@@ -48,31 +48,31 @@ public class MainGame extends Application
 
         
     }
-    private void setStage(Stage primaryStage)
+    private void setStage(Stage primaryStage) //najmi
     {
         this.pStage = primaryStage;
     }
     
-    public static Stage getStage()
+    public static Stage getStage() //najmi//assigning primary stage to a static variable so all class can access the same instance of primary stage
     {
         return pStage;
     }
-	public static void popUp(String team)
+	public static void popUp(String team) //aisyah and fong //Functions to show a popup window when you win the game
 	{
 		
-        Alert alert = new Alert(AlertType.CONFIRMATION);
-        alert.setTitle("Congratulations");
-        alert.setHeaderText("Congratulations Team " + team + " won!");
+        Alert alert = new Alert(AlertType.CONFIRMATION); //type of popup is alert
+        alert.setTitle("Congratulations");  // title
+        alert.setHeaderText("Congratulations Team " + team + " won!"); //content of popup
         alert.setContentText("Play again?");
 
-        ButtonType buttonTypeOne = new ButtonType("Restart");
+        ButtonType buttonTypeOne = new ButtonType("Restart"); //button initialization
         ButtonType buttonTypeTwo = new ButtonType("Exit");
         ButtonType buttonTypeCancel = new ButtonType("Cancel");
 
-        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel);
+        alert.getButtonTypes().setAll(buttonTypeOne, buttonTypeTwo, buttonTypeCancel); //setting the button on to the popup window
 
-        Optional<ButtonType> result = alert.showAndWait();
-        if (result.get() == buttonTypeOne){
+        Optional<ButtonType> result = alert.showAndWait(); //receive which options user choose
+        if (result.get() == buttonTypeOne){// logic to handle options choices
             System.out.println( "Restarting app!" );
             getStage().close();
             Platform.runLater( () -> new MainGame().start( new Stage() ) );
