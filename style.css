@@ -2,4 +2,17 @@
 {
     -fx-effect:dropshadow(one-pass-box,black,8,0.0,2,0);  
     -fx-border-radius:20;  
+    -fx-background-color:#ffffff;
+}
+
+.button:hover 
+{
+    -fx-background-color: #a1cdff; /* Green */
+}
+
+.label 
+{
+    -fx-font-size: 40px;
+    -fx-font-family:Arial;
+    -fx-font-weight:bold;
 }

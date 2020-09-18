@@ -55,11 +55,14 @@ public class MainGame extends Application
     {
         return pStage;
     }
-	public static void popUp(char team)
+	public static void popUp(String team)
 	{
 		Stage stage = new Stage();
-		stage.setTitle("Team " + team + " won!");
-		stage.setScene(new Scene(new Button("Team " + team + "won!"),200, 150));
+
+        Button resetButton = new Button("Team " + team + " won!");
+
+		stage.setTitle("Congratulations");
+		stage.setScene(new Scene(resetButton,200,150));
 		stage.show();
 	}
 }

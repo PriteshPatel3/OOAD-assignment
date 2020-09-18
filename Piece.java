@@ -12,7 +12,8 @@ import java.util.ArrayList;
 
 
 
-public class Piece{
+public class Piece
+{
     private int x,y;
     private char PName;
     private Button button;
@@ -183,6 +184,58 @@ public class Piece{
             
             this.PName = '\0';
         }
+    }
+
+    public String getFullName()
+    {
+        char name = this.getName();
+
+        String fullName = "default";
+        switch (name)
+        {
+            case 'c':
+                fullName = "Chevron";
+                break;
+
+            case 's':
+                fullName = "Sun";
+                break;
+
+            case 't':
+                fullName = "Triangle";
+                break;
+
+            case 'a':
+                fullName = "Arrow";
+                break;
+
+            case 'p':
+                fullName = "Plus";
+                break;
+
+        }
+
+        return fullName;
+
+    }
+
+    public String getFullTeam()
+    {
+        char team = this.getTeam();
+        String fullTeam = "default";
+        switch (team)
+        {
+            case 'b':
+                fullTeam = "Blue";
+                break;
+
+            case 'r':
+                fullTeam = "Red";
+                break;
+        }
+
+        return fullTeam;
+
     }
 
     //@Override

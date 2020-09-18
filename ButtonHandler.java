@@ -18,15 +18,37 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         int y = BoardFX.getY(e.getSource());
         sb.append(x);
         sb.append(y);
-        
-        cordStack.push(sb.toString());
+        String currentCord = sb.toString();
+
+        if(cordStack.isEmpty())
+        {
+            //if user clicks on empty space
+            if (Character.compare(pMap.get(sb.toString()).getName(), '\0') == 0)
+            {
+                BoardFX.changeText("No piece selected");
+            }
+
+            else
+            {
+                cordStack.push(currentCord);
+                BoardFX.changeText(pMap.get(currentCord).getFullTeam() + " " + pMap.get(currentCord).getFullName() + " selected");
+            }
+        }
+
+        else
+        {
+            cordStack.push(currentCord);
+        }
+
 
 
         if (cordStack.size() == 2)
         {
+            
             //get destination and source coordinates
             String destinationCord = cordStack.pop();
             String sourceCord = cordStack.pop();
+
             //checks to see that the user does not press the same button and the source isnt an empty button
             if( !(destinationCord.equals(sourceCord)) && (Character.compare(pMap.get(sourceCord).getName() ,'\0') != 0) )
             {
@@ -38,10 +60,23 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                     {
                         if(checkTurn(sourceCord))
                         {
+                            //prints out move message
+                            BoardFX.changeText(pMap.get(sourceCord).getFullTeam() + " " + pMap.get(sourceCord).getFullName() + " Moved Succesfully ");
                             move(destinationCord, sourceCord);
                             switchPieces(sourceCord);
 							gameOver();
                         }
+
+                        else
+                        {
+                            BoardFX.changeText("Wrong team chosen");
+                        }
+
+                    }
+
+                    else
+                    {
+                        BoardFX.changeText("Piece cannot be moved there");
                     }
                 //}
             }
@@ -164,7 +199,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
 	{
 		boolean win = false;
 		int sun = 0 ;
-		char team = '\0';
+		String team = "\0";
 		
 		for (Map.Entry<String, Piece> gridEntry : pMap.entrySet())
 		{
@@ -172,7 +207,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
 			if (Character.compare(gridEntry.getValue().getName(), 's') == 0)
 			{
 				sun++;
-				team = gridEntry.getValue().getTeam();
+				team = gridEntry.getValue().getFullTeam();
 			}
 		}
 		if (sun ==1)
@@ -687,6 +722,17 @@ class MenuHandler extends ButtonHandler
                 break;
 
             case 3:
+                try
+                {
+                    File resetFile = new File("reset_game.txt");
+                    loadGame(resetFile);
+                }
+
+                catch (IOException g)
+                {
+                    System.out.println("Reset File not located");
+                }
+
                 break;
 
         }
