@@ -7,6 +7,8 @@ import javafx.scene.control.*;
 import java.time.*;
 import java.time.format.*;
 import javafx.stage.*;
+import javafx.application.Platform;
+
 
 public class ButtonHandler extends MainGame implements EventHandler<ActionEvent> 
 {
@@ -470,7 +472,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         else
         {
             //Reminder to change this
-            System.out.println("Logic Failed, you smol pp");
+            System.out.println("Illegal movement. Please move according to the Plus piece's logic");
         }
         return true;
     }
@@ -527,7 +529,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
             }
         }
         else{
-            System.out.println("Ummm please move according to the logic arrow");
+            System.out.println("Illegal movement. Please move according to the Triangle piece's logic");
         }
 
         return true;
@@ -552,7 +554,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 //System.out.println(tempPiece.getName() + " " + coord);
                 if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
                 {
-                    System.out.println("There's an obstacle in the way of X1");
+                    System.out.println("There's an obstacle in the way(1)");
                     return false;
                 }
             }
@@ -573,7 +575,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 //System.out.println(tempPiece.getName() + " " + coord);
                 if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
                 {
-                    System.out.println("There's an obstacle in the way of X1(2)");
+                    System.out.println("There's an obstacle in the way(2)");
                     return false;
                 }
             }
@@ -594,7 +596,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 //System.out.println(tempPiece.getName() + " " + coord);
                 if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
                 {
-                    System.out.println("There's an obstacle in the way of X1(3)");
+                    System.out.println("There's an obstacle in the way(3)");
                     return false;
                 }
             }
@@ -616,7 +618,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
                 //System.out.println(tempPiece.getName() + " " + coord);
                 if (Character.compare(tempPiece.getName(),'\0') != 0) //Checks if piece exist
                 {
-                    System.out.println("There's an obstacle in the way of X1(4)");
+                    System.out.println("There's an obstacle in the way(4)");
                     return false;
                 }
             }
@@ -624,7 +626,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
         else
         {
-            System.out.println("umm please move according to the logic tri");
+            System.out.println("Illegal movement. Please move according to the Triangle piece's logic");
         }
         return true;
     }
@@ -687,6 +689,23 @@ class MenuHandler extends ButtonHandler
                 break;
 
             case 3:
+<<<<<<< Updated upstream
+=======
+                System.out.println( "Restarting app!" );
+                MainGame.getStage().close();
+                Platform.runLater( () -> new MainGame().start( new Stage() ) );
+                /*try
+                {
+                    File resetFile = new File("reset_game.txt");
+                    loadGame(resetFile);
+                }
+
+                catch (IOException g)
+                {
+                    System.out.println("Reset File not located");
+                }*/
+                //restartApplication();
+>>>>>>> Stashed changes
                 break;
 
         }
