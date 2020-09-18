@@ -648,7 +648,7 @@ class MenuHandler extends ButtonHandler //Najmi//button handler but for menu ite
             case 1://Najmi//save button
                 try 
                 {
-                    File saveDirectory = dChooser.showDialog(MainGame.getStage()); //opens file saving dialogue
+                    File saveDirectory = dChooser.showDialog(MainGame.getStage()); //opens file directory chooser and gets desired file directory
                     String directory = saveDirectory.getAbsolutePath();
                     StringBuilder name = new StringBuilder();
 
@@ -667,7 +667,7 @@ class MenuHandler extends ButtonHandler //Najmi//button handler but for menu ite
 
                 catch (IOException f)
                 {
-                    System.out.println("File not created");
+                    System.out.println("File not created");// prints if file was not found
                 }
                 
 
@@ -704,7 +704,7 @@ class MenuHandler extends ButtonHandler //Najmi//button handler but for menu ite
     {//Najmi
         
             //create file
-            File savedFile = new File(fileName);
+            File savedFile = new File(fileName); //create new save file
 
             //create file writer class
             FileWriter fw = new FileWriter(savedFile);
@@ -722,7 +722,7 @@ class MenuHandler extends ButtonHandler //Najmi//button handler but for menu ite
             pw.println("XY: x = x Coordinate: y = y Coordinate ");
             pw.println("p = PLus: t = Triangle: c = Chevron: s = Sun: a = Arrow: * = Empty");
 
-            for (int i = 0; i<8; i++)
+            for (int i = 0; i<8; i++) //writes the coordinates for all pieces on the board
             {
                 pw.println(" ");
                 pw.println("Row: " + i);
@@ -749,7 +749,7 @@ class MenuHandler extends ButtonHandler //Najmi//button handler but for menu ite
                 }
             }
 
-            pw.close();
+            pw.close(); //close print writer
     }
 
     public void loadGame(File file) throws IOException
@@ -763,7 +763,7 @@ class MenuHandler extends ButtonHandler //Najmi//button handler but for menu ite
         
         String st; 
         
-        for (int i = 0; i<4; i++)
+        for (int i = 0; i<4; i++) //skips the date and formating lines
         {
             st = br.readLine();
         }
@@ -774,7 +774,7 @@ class MenuHandler extends ButtonHandler //Najmi//button handler but for menu ite
             st = br.readLine();
 
             //gets the info for cords and pieces
-            for (int k = 0; k<7; k++)
+            for (int k = 0; k<7; k++) //Splits up the String into cords, name and team
             {
                 st = br.readLine();
                 
@@ -791,7 +791,7 @@ class MenuHandler extends ButtonHandler //Najmi//button handler but for menu ite
 
         }
 
-        for (int r = 0; r<56; r++)
+        for (int r = 0; r<56; r++) //loads all the peices into the Gui base on the info in text file
         {
             String cord = cordArray.get(r);
             
