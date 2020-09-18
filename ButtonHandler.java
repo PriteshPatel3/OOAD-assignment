@@ -689,8 +689,6 @@ class MenuHandler extends ButtonHandler
                 break;
 
             case 3:
-<<<<<<< Updated upstream
-=======
                 System.out.println( "Restarting app!" );
                 MainGame.getStage().close();
                 Platform.runLater( () -> new MainGame().start( new Stage() ) );
@@ -705,7 +703,6 @@ class MenuHandler extends ButtonHandler
                     System.out.println("Reset File not located");
                 }*/
                 //restartApplication();
->>>>>>> Stashed changes
                 break;
 
         }

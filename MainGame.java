@@ -59,12 +59,6 @@ public class MainGame extends Application
     }
 	public static void popUp(char team)
 	{
-<<<<<<< Updated upstream
-		Stage stage = new Stage();
-		stage.setTitle("Team " + team + " won!");
-		stage.setScene(new Scene(new Button("Team " + team + "won!"),200, 150));
-		stage.show();
-=======
 		
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Congratulations");
@@ -86,7 +80,6 @@ public class MainGame extends Application
             Platform.exit();
         } else {
         }
->>>>>>> Stashed changes
 	}
 }
 
