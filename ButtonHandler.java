@@ -724,22 +724,10 @@ class MenuHandler extends ButtonHandler
                 break;
 
             case 3:
-                try
+                
                 System.out.println( "Restarting app!" );
                 MainGame.getStage().close();
                 Platform.runLater( () -> new MainGame().start( new Stage() ) );
-                /*try
-                {
-                    File resetFile = new File("reset_game.txt");
-                    loadGame(resetFile);
-                }
-
-                catch (IOException g)
-                {
-                    System.out.println("Reset File not located");
-                }
-
-                
                 //restartApplication();
                 break;
 

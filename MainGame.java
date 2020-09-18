@@ -59,13 +59,6 @@ public class MainGame extends Application
     }
 	public static void popUp(String team)
 	{
-		Stage stage = new Stage();
-
-        Button resetButton = new Button("Team " + team + " won!");
-
-		stage.setTitle("Congratulations");
-		stage.setScene(new Scene(resetButton,200,150));
-		stage.show();
 		
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Congratulations");
