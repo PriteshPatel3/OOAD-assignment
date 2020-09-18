@@ -18,6 +18,10 @@ public final class BoardFX
 {   
     static GridPane board = new GridPane();
     ButtonHandler menuHand = new MenuHandler();
+    
+    //annoucement text
+    static Label text = new Label("Hi there");
+
     BoardFX(Stage primaryStage)
     {
         board.setAlignment(Pos.CENTER);
@@ -51,9 +55,7 @@ public final class BoardFX
 		//add menu to menubar
         bar.getMenus().add(menu);
         
-        //annoucement text
-        Label text = new Label("Hi there");
-
+        
         //Vbox
         VBox layout = new VBox(5);
         layout.getChildren().add(bar);
@@ -63,7 +65,9 @@ public final class BoardFX
         //board.setRotate(300);
 
         //Set up primary Stage
-        Scene scene = new Scene(layout,1024,950);
+        Scene scene = new Scene(layout,1024,1024);
+        scene.getStylesheets().add("style.css");
+
         primaryStage.setTitle("Chess");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -89,5 +93,10 @@ public final class BoardFX
     public void setBoard(Node node, int col, int row)
     {
         board.add(node,col,row);
+    }
+
+    public static void changeText(String annoucement)
+    {
+        text.setText(annoucement);
     }
 }
