@@ -21,7 +21,7 @@ import javafx.application.Platform;
  * <h1>MainGame class</h1>
  * <p>MainGame is a class to run and launch the javafx application</p>
  * It has the neccesary code to initialize the application and connects different classes together to make the game funcional
- * 
+ * @see https://github.com/PriteshPatel3/OOAD-assignment
  */
 public class MainGame extends Application //najmi and pritesh
 {
