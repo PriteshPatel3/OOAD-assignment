@@ -14,6 +14,26 @@ import java.util.ArrayList;
 /* Observer Pattern 1 Piece object is mapped to 1 button, Any changes on Piece class in observed on the button*/ 
 /*State pattern, Piece object state determines how to move the pieces
 Example if state of Piece change from plus piece to triangle piece, the piece will have behavior of a triangle */
+/**
+ * <H1>Piece class</H1>
+ * <p>
+ * Piece class is used to create the different type of piece on the board such as chevron, plus, triangle, sun, arrow and empty piece.<br>
+ * Behavior of the piece depends on the state or attributes of the piece.
+ * This means Piece class uses a<B> State DP</B>.
+ * </p>
+ * <p>
+ * <b>Observer DP</b> is used.
+ * Between 1 Piece object and 1 Button.
+ * Any changes on the Piece object the button will observe the changes
+ * </p>
+ * 
+ * <p>
+ * <b>MVC DP</b>
+ * Piece class is considered the Model part of the MVC DP
+ * The central component of the pattern. It is the application's dynamic data structure, independent of the user interface.
+ * </p>
+ * @author Pritesh Patel and Najmi
+ */
 public class Piece //Pritesh Najmi
 {
     private int x,y;
@@ -22,44 +42,81 @@ public class Piece //Pritesh Najmi
     private char team;
     private static int turn; //turn to know its blue or red team turn 
     ButtonHandler btnHandler = new ButtonHandler(); //initialization handler for buttons
+
+    /**
+     * Piece constructor takes in the desired x and y coordinates <br>
+     * and runs a function to determine the what piece it is 
+     */
     Piece (int x,int y) // constructor for Piece class
     {
         this.x = x;
         this.y = y;     
         setUpPiece(); //setup button based X Y on coordinates
     }
-
+    /**
+     * Function to change the Piece object to a different name to alter behavior of the piece object
+     * @param name desired name must be a character (p,t,c,s,a)
+     * 
+     */
     public void setName (char name)
     {
         this.PName = name;
     }
     
+    /**
+     * Function mainly used for movement purposes <br>
+     * Piece get.button() of first coordinate, move to button of second coordinate <br>
+     * clear content of first button <br>
+     * This creates a movement of piece illusion
+     * @return Button Object
+     * 
+     */
     public Button getButton()
     {
         return button;
     }
-
+    /**
+     * Used to determine behavior, movement logic and collision detection check when moving based on the name <br>
+     * 
+     * @return char name
+     * 
+     */
     public char getName()
     {
         return PName;
     }
-
+    /** 
+     * used to determine when moving its the correct team turn
+     * @return char team
+     * 
+     */
     public char getTeam()
     {
         return this.team;
     }
-
+    /**
+     * Function to change the Piece object to a different team to alter behavior of the piece object
+     * @param team desired name must a character (b,r)
+     * 
+     */
     public void setTeam(char team)
     {
         this.team = team;
     }
 
+    /**
+     * Used for logic check <br>
+     * even number - red turn<br>
+     * odd number - blue turn
+     * @return int turn
+     */
     public int getTurn()
     {
-        
         return turn;
     }
-
+    /**
+     * Increases the turn count after a team has moved successfully
+     */
     public void increaseTurn()
     {
         turn++;
@@ -188,6 +245,11 @@ public class Piece //Pritesh Najmi
         }
     }
 
+    /**
+     * Functions returns the full name of a piece based on the char name<br>
+     * used for making error message more user friendly and understandable
+     * @return string fullName
+     */
     public String getFullName() //Najmi//get full name for printing purposes // To show user error more clearly
     {
         char name = this.getName();
@@ -221,6 +283,11 @@ public class Piece //Pritesh Najmi
 
     }
 
+    /**
+     * Functions returns the full team name of a piece based on the char team<br>
+     * used for making error message more user friendly and understandable
+     * @return string fullTeam
+     */
     public String getFullTeam() //Najmi//get full team for printing purposes // To show user error more clearly
     {
         char team = this.getTeam();

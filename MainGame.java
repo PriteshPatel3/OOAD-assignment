@@ -17,13 +17,22 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.application.Platform;
 
+/**
+ * <h1>MainGame class</h1>
+ * <p>MainGame is a class to run and launch the javafx application</p>
+ * It has the neccesary code to initialize the application and connects different classes together to make the game funcional
+ * 
+ */
 public class MainGame extends Application //najmi and pritesh
 {
     static Stage pStage; // variable to hold primary stage (singleton DP)
     /*Proxy pattern, this LinkedHashMap provide the mean to access the Piece on the board */
     static LinkedHashMap<String, Piece> pMap = new LinkedHashMap<String, Piece>(57,0.75f,false);  //Map to track what Piece is on what coordinate
     static Stack<String> cordStack = new Stack<String>(); // A stack of string used to handle movement logic
-
+    /**
+     * function to launch the javafx application
+     * @param primaryStage takes a main stage as argument, main stage is where all the gui will be located 
+     */
     @Override
     public void start(Stage primaryStage)
     {
@@ -52,11 +61,18 @@ public class MainGame extends Application //najmi and pritesh
     {
         this.pStage = primaryStage;
     }
-    
+    /**
+     * functions to return stage so that other class can access the primary Stage
+     * @return stage
+     */
     public static Stage getStage() //najmi//assigning primary stage to a static variable so all class can access the same instance of primary stage
     {
         return pStage;
     }
+    /**
+     * Functions produces a popup window when games end and
+     * @param team takes in team to determine who won the game
+     */
 	public static void popUp(String team) //aisyah and fong //Functions to show a popup window when you win the game
 	{
 		

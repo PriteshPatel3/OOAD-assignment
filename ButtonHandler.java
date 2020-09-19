@@ -10,8 +10,18 @@ import javafx.stage.*;
 import javafx.application.Platform;
 
 /* Controller part of MVC */
+/**
+ * <h1> ButtonHandler class </h1>
+ * This class is where the calculation of movement logic occurs.<br>
+ * All method and functions in this class is private as it should only be called within the class.
+ * <p><b>MVC DP</b> this class is a controller </p>
+ */
 public class ButtonHandler extends MainGame implements EventHandler<ActionEvent> //Pritesh Najmi Fong Darren Aisyah
 {
+    /**
+     * Contains all the logic how the object should process when an ActionEvent occurs
+     * @param e takes in an ActionEvent (mouseclick is an action event)
+     */
     @Override
     public void handle(ActionEvent e) //Pritesh Najmi//functions to handle what happen when a certain button is clicked
     {
@@ -183,7 +193,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
     }
 	
-	public void gameOver () //Aisyah//checks if game over
+	private void gameOver () //Aisyah//checks if game over
 	{
 		boolean win = false;
 		int sun = 0 ;
@@ -317,7 +327,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
     }
     
-    public boolean moveTri (int xDes, int yDes, int xSour, int ySour) //Darren//triangle movement logic
+    private boolean moveTri (int xDes, int yDes, int xSour, int ySour) //Darren//triangle movement logic
     {   //ensure triangle can move diagonally 
         if ((Math.abs(yDes-ySour) == Math.abs(xDes-xSour)) && (Math.abs(yDes-ySour) != 0) && (Math.abs(xDes-xSour) != 0))
         {
@@ -329,7 +339,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
     }
 
-    public void switchPieces(String sourceCord) //Pritesh Darren//logic to switch plusses and traingles
+    private void switchPieces(String sourceCord) //Pritesh Darren//logic to switch plusses and traingles
     {
         int turn = pMap.get(sourceCord).getTurn();
         if (turn % 4 == 0 ) //if turn is divisible by 4 (4,8,12,16,20,...) then switch occurs, this logic is for red
@@ -386,7 +396,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         }
     }
 
-    public boolean checkObstaclesPlus(int xDes, int yDes, int xSour, int ySour) //Darren
+    private boolean checkObstaclesPlus(int xDes, int yDes, int xSour, int ySour) //Darren
     {
         int tempCoordX, tempCoordY;
         StringBuilder sb = new StringBuilder();
@@ -482,7 +492,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
     }
 
 
-    public boolean checkObstaclesAr(int xDes, int yDes, int xSour, int ySour) //Fong
+    private boolean checkObstaclesAr(int xDes, int yDes, int xSour, int ySour) //Fong
     {
         //int tempCoordX, tempCoordY;
         StringBuilder sb = new StringBuilder();
@@ -539,7 +549,7 @@ public class ButtonHandler extends MainGame implements EventHandler<ActionEvent>
         return true;
     }
 
-    public boolean checkObstaclesTri(int xDes, int yDes, int xSour, int ySour) //Fong
+    private boolean checkObstaclesTri(int xDes, int yDes, int xSour, int ySour) //Fong
     {
         StringBuilder sb = new StringBuilder();
         if((yDes > ySour) && (xDes > xSour)){ //135 degree for blue, 315 for red (but logically is 45 for both)
